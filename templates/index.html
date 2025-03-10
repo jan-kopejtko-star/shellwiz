@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShellWiz - Command Line Quiz Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">Shell<span>Wiz</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Tutorial</a></li>
+                <li><a href="#" class="active">Quiz Game</a></li>
+                <li><a href="#">Commands</a></li>
+                <li><a href="#">Cheat Sheet</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h1>Shell Command Quiz Game</h1>
+        <p>Test your knowledge of terminal commands and improve your shell skills!</p>
+        
+        <div class="quiz-modes">
+            <button class="mode-btn active">Multiple Choice</button>
+            <button class="mode-btn">Command Completion</button>
+            <button class="mode-btn">Output Prediction</button>
+        </div>
+        
+        <div class="game-container">
+            <div class="game-info">
+                <div class="score-display">
+                    <div class="score-item">
+                        <span class="score-value" id="current-score">0</span>
+                        <span class="score-label">Score</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-value" id="current-question">1</span>
+                        <span class="score-label">of 10</span>
+                    </div>
+                </div>
+                <div class="timer">Time: <span id="time-remaining">30</span>s</div>
+            </div>
+            
+            <div class="quiz-card">
+                <div class="quiz-header">
+                    <span class="category-badge category-file">File Operations</span>
+                    <div class="difficulty difficulty-medium">
+                        <div class="difficulty-dot"></div>
+                        <div class="difficulty-dot"></div>
+                        <div class="difficulty-dot"></div>
+                    </div>
+                </div>
+                
+                <h2>Which command would you use to list all files, including hidden ones?</h2>
+                
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="terminal-title">bash</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> _
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="options">
+                    <div class="option" data-correct="true">ls -a</div>
+                    <div class="option">ls -l</div>
+                    <div class="option">ls -h</div>
+                    <div class="option">ls -r</div>
+                </div>
+                
+                <div class="feedback">
+                    <div class="feedback-content"></div>
+                    <div class="feedback-explanation"></div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" style="width: 10%"></div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="btn btn-secondary" id="hint-btn">Get Hint (-5 pts)</button>
+                    <button class="btn" id="next-btn" disabled>Next Question</button>
+                </div>
+            </div>
+            
+            <div class="game-over">
+                <h2>Quiz Complete!</h2>
+                <p>You've completed the Shell Command Quiz!</p>
+                <div class="final-score">85</div>
+                <p>Great job! You're on your way to becoming a shell wizard.</p>
+                
+                <div class="achievements">
+                    <div class="achievement">
+                        <div class="achievement-icon">🔥</div>
+                        <div class="achievement-title">Speed Demon</div>
+                        <div class="achievement-desc">Answered 5 questions in under 10 seconds</div>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">📂</div>
+                        <div class="achievement-title">File Master</div>
+                        <div class="achievement-desc">All file operation questions correct</div>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">⭐</div>
+                        <div class="achievement-title">First Quiz</div>
+                        <div class="achievement-desc">Completed your first quiz</div>
+                    </div>
+                </div>
+                
+                <button class="btn" id="play-again-btn">Play Again</button>
+                <button class="btn btn-secondary" id="learn-more-btn">Learn More Commands</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+</body>
+</html>
