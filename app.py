@@ -8,10 +8,10 @@ from flask_wtf.csrf import CSRFProtect
 import os
 from datetime import datetime
 
+app = Flask(__name__)
+
 # Initialize CSRF protection
 csrf = CSRFProtect(app)
-
-app = Flask(__name__)
 
 # Set configurations
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shellwiz_postgre_sxgi_user:p3r79Ft1zQiKUrMYmdTMNj5eld9caUMT@dpg-cv9gqctds78s739g0jqg-a.frankfurt-postgres.render.com/shellwiz_postgre_sxgi'
