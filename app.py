@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    """Home page route (Quiz Game)"""
-    return render_template('index.html')
+    """Home/landing page route"""
+    return render_template('home.html')
 
 @app.route('/premium')
 def premium():
@@ -21,8 +21,8 @@ def tutorial():
 
 @app.route('/quiz')
 def quiz():
-    """Quiz page route - currently same as index"""
-    return render_template('index.html')
+    """Quiz page route"""
+    return render_template('index.html')  # The quiz is in index.html
 
 @app.route('/challenges')
 def challenges():
