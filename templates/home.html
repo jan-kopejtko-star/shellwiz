@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShellWiz - Master the Command Line</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                <li><a href="#" class="login-btn">Login</a></li>
+                <li><a href="#" class="register-btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Become a Command Line <span>Wizard</span></h1>
+                <p class="hero-subtitle">Learn shell commands through interactive games, challenges, and tutorials.</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('quiz') }}" class="btn btn-large">Start Quiz Game</a>
+                    <a href="{{ url_for('premium') }}" class="btn btn-large btn-premium">Go Premium</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="terminal large-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="terminal-title">shellwiz</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> echo "Hello, ShellWiz!"
+Hello, ShellWiz!
+<span class="prompt">user@shellwiz:~$</span> ./start-learning
+Loading interactive shell tutorials...
+Welcome to ShellWiz! Ready to master the command line?
+<span class="prompt">user@shellwiz:~$</span> _
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose ShellWiz?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">🎮</div>
+                        <h3 class="feature-title">Learn By Playing</h3>
+                        <p class="feature-desc">Master the command line through fun, interactive quiz games that test your knowledge and help you improve.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">🧩</div>
+                        <h3 class="feature-title">Real-World Challenges</h3>
+                        <p class="feature-desc">Apply your skills to practical challenges that simulate real-world scenarios you'll encounter as a developer.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Track Your Progress</h3>
+                        <p class="feature-desc">See your improvement over time with detailed analytics and personalized recommendations.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">🏆</div>
+                        <h3 class="feature-title">Compete & Compare</h3>
+                        <p class="feature-desc">Join our global leaderboard and compete with other users to climb the ranks and showcase your skills.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">📚</div>
+                        <h3 class="feature-title">Comprehensive Tutorials</h3>
+                        <p class="feature-desc">Follow our step-by-step tutorials designed for all skill levels, from complete beginners to advanced users.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-content">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">Cross-Platform Support</h3>
+                        <p class="feature-desc">Learn commands for Linux, macOS, and Windows all in one place, with clear indicators for platform-specific features.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">100,000+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Commands Covered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Challenges</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Quizzes Completed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="getting-started">
+        <div class="container">
+            <h2 class="section-title">Getting Started is Easy</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Create an Account</h3>
+                    <p class="step-desc">Sign up for free and create your ShellWiz profile to track your progress.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Take the Quiz</h3>
+                    <p class="step-desc">Test your current knowledge with our interactive command line quiz.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Follow Tutorials</h3>
+                    <p class="step-desc">Learn new commands and concepts with our step-by-step tutorials.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Complete Challenges</h3>
+                    <p class="step-desc">Apply what you've learned in real-world scenarios and earn points.</p>
+                </div>
+            </div>
+            <div class="centered-button">
+                <a href="{{ url_for('quiz') }}" class="btn btn-large">Start Learning Now</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"ShellWiz transformed how I learn the command line. The quiz format makes it fun, and I'm actually retaining what I learn!"</p>
+                        <div class="testimonial-author">
+                            <img src="{{ url_for('static', filename='img/user1.jpg') }}" alt="User Avatar" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Sarah Johnson</div>
+                                <div class="testimonial-role">Frontend Developer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"As a CS student, ShellWiz has been invaluable. The challenges helped me prepare for real-world scenarios that came up in my internship."</p>
+                        <div class="testimonial-author">
+                            <img src="{{ url_for('static', filename='img/user2.jpg') }}" alt="User Avatar" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">David Chen</div>
+                                <div class="testimonial-role">Computer Science Student</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"I upgraded to Premium for the real shell environment, and it's been worth every penny. My team has noticed how much faster I work in the terminal now."</p>
+                        <div class="testimonial-author">
+                            <img src="{{ url_for('static', filename='img/user3.jpg') }}" alt="User Avatar" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <div class="testimonial-name">Michael Rodriguez</div>
+                                <div class="testimonial-role">DevOps Engineer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="premium-banner">
+        <h2>Ready to take your command line skills to the next level?</h2>
+        <p>Unlock premium features including real shell environment, advanced challenges, and progress tracking.</p>
+        <button class="btn btn-premium btn-large">Upgrade to Premium</button>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to ShellWiz</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <span>Don't have an account? <a href="#" id="show-register">Register</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Login</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>
