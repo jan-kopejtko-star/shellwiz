@@ -592,8 +592,8 @@ nav a:hover, nav a.active {
 .page-header {
     background-color: var(--dark);
     color: white;
-    padding: 3rem 0;
-    margin-bottom: 2rem;
+    padding: 1rem 0;
+    margin-bottom: 0rem;
 }
 
 .page-title {
