@@ -1,26 +1,22 @@
 # app.py
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
-from forms import RegistrationForm, LoginForm
-from models import User, UserPreference
 import os
+from datetime import datetime
 
 app = Flask(__name__)
 
-# Set the database URL directly
+# Set configurations
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shellwiz_postgre_sxgi_user:p3r79Ft1zQiKUrMYmdTMNj5eld9caUMT@dpg-cv9gqctds78s739g0jqg-a.frankfurt-postgres.render.com/shellwiz_postgre_sxgi'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your-secret-key-for-development')
 
 # Initialize extensions
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 bcrypt = Bcrypt(app)
 
 # Initialize login manager
@@ -28,19 +24,15 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
+# Import models after initializing db
+from models import User, UserPreference
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Modify User class to work with Flask-Login
-class User(db.Model, UserMixin):
-    # Your existing User model code
-    # Need to add UserMixin inheritance and implement get_id
-    def get_id(self):
-        return str(self.user_id)
-
-# Import models (after db is defined)
-from models import *
+# Import forms after app is initialized to avoid circular imports
+from forms import RegistrationForm, LoginForm
 
 @app.route('/')
 def index():
@@ -82,13 +74,11 @@ def about():
     """About page route"""
     return render_template('about.html')
 
-@app.route('/static/<path:path>')
-def send_static(path):
-    """Route for serving static files"""
-    return send_from_directory('static', path)
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+        
     form = RegistrationForm()
     if form.validate_on_submit():
         # Hash the password
@@ -151,6 +141,12 @@ def logout():
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
+
+@app.route('/static/<path:path>')
+def send_static(path):
+    """Route for serving static files"""
+    return send_from_directory('static', path)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

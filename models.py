@@ -1,9 +1,10 @@
 # models.py
 from app import db
 from datetime import datetime
+from flask_login import UserMixin
 
 # User Management Models
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -22,6 +23,10 @@ class User(db.Model):
     challenge_completions = db.relationship('ChallengeCompletion', backref='user')
     command_masteries = db.relationship('CommandMastery', backref='user')
     achievements = db.relationship('UserAchievement', backref='user')
+    
+    # For Flask-Login
+    def get_id(self):
+        return str(self.user_id)
 
 class UserPreference(db.Model):
     __tablename__ = 'user_preferences'
