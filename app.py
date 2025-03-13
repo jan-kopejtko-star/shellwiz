@@ -2,6 +2,10 @@
 from flask import Flask, render_template, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
 import os
 
 app = Flask(__name__)
@@ -13,6 +17,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize extensions
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+bcrypt = Bcrypt(app)
 
 # Import models (after db is defined)
 from models import *
@@ -61,6 +67,35 @@ def about():
 def send_static(path):
     """Route for serving static files"""
     return send_from_directory('static', path)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        # Hash the password
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        
+        # Create new user
+        new_user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password_hash=hashed_password
+        )
+        
+        # Add to database
+        db.session.add(new_user)
+        db.session.commit()
+        
+        # Create default user preferences
+        user_pref = UserPreference(user_id=new_user.user_id)
+        db.session.add(user_pref)
+        db.session.commit()
+        
+        # Flash a success message
+        flash('Account created successfully! You can now log in.', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template('register.html', form=form)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

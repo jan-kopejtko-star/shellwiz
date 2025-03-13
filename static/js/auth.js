@@ -102,3 +102,76 @@ document.addEventListener('DOMContentLoaded', function() {
         registerModal.style.display = 'none';
     });
 });
+
+// In your auth.js file
+document.addEventListener('DOMContentLoaded', function() {
+    // Registration form handling
+    const registerForm = document.querySelector('#registerModal form');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm').value;
+            
+            // Create request data
+            const data = {
+                username: username,
+                email: email,
+                password: password,
+                confirm_password: confirmPassword
+            };
+            
+            // Send API request
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Display success message
+                    showMessage('success', data.message);
+                    
+                    // Close register modal and open login modal
+                    document.getElementById('registerModal').style.display = 'none';
+                    document.getElementById('loginModal').style.display = 'block';
+                } else {
+                    // Display error message
+                    showMessage('error', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('error', 'An error occurred. Please try again.');
+            });
+        });
+    }
+    
+    // Helper function to show messages
+    function showMessage(type, message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('flash-message', type);
+        messageDiv.textContent = message;
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.classList.add('close-flash');
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            messageDiv.remove();
+        };
+        
+        messageDiv.appendChild(closeBtn);
+        document.querySelector('.flash-messages').appendChild(messageDiv);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            messageDiv.remove();
+        }, 5000);
+    }
+});
