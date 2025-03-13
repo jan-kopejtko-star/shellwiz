@@ -30,8 +30,13 @@
                 <li><a href="{{ url_for('about') }}">About</a></li>
             </ul>
             <ul class="auth-nav">
-                <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
-                <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><span class="user-greeting">Hello, {{ current_user.username }}</span></li>
+                    <li><a href="{{ url_for('logout') }}" class="logout-btn">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
