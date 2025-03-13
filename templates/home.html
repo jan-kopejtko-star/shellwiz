@@ -31,8 +31,22 @@
             </ul>
             <ul class="auth-nav">
                 {% if current_user.is_authenticated %}
-                    <li><span class="user-greeting">Hello, {{ current_user.username }}</span></li>
-                    <li><a href="{{ url_for('logout') }}" class="logout-btn">Logout</a></li>
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            Hello, {{ current_user.username }} <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a>
+                            {% if current_user.is_premium %}
+                                <a href="{{ url_for('premium_dashboard') }}"><i class="fas fa-crown"></i> Premium Dashboard</a>
+                            {% else %}
+                                <a href="{{ url_for('premium') }}"><i class="fas fa-crown"></i> Upgrade to Premium</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
                 {% else %}
                     <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
                     <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
@@ -288,5 +302,6 @@ Welcome to ShellWiz! Ready to master the command line?
     
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <!-- <script src="{{ url_for('static', filename='js/auth.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='js/user-menu.js') }}"></script>
 </body>
 </html>
