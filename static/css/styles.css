@@ -6,6 +6,8 @@
     --accent: #FFC107;
     --success: #4CAF50;
     --error: #F44336;
+    --premium: #9c59b6;
+    --premium-gradient: linear-gradient(135deg, #9c59b6, #8e44ad);
 }
 
 body {
@@ -54,6 +56,23 @@ nav a {
 
 nav a:hover, nav a.active {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Premium button styling */
+.premium-btn {
+    background: var(--premium-gradient);
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 20px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease !important;
+}
+
+.premium-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #9c59b6, #734eb5);
 }
 
 .container {
@@ -238,6 +257,17 @@ nav a:hover, nav a.active {
 
 .btn-secondary:hover {
     background-color: #616161;
+}
+
+/* Premium button styling for content area */
+.btn-premium {
+    background: var(--premium-gradient);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-premium:hover {
+    background: linear-gradient(135deg, #9c59b6, #734eb5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .score-display {
