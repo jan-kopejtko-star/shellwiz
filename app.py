@@ -22,7 +22,7 @@ def tutorial():
 @app.route('/quiz')
 def quiz():
     """Quiz page route"""
-    return render_template('index.html')  # The quiz is in index.html
+    return render_template('quiz.html')
 
 @app.route('/challenges')
 def challenges():

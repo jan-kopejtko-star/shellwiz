@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShellWiz - Command Line Quiz Game</title>
+    <title>Quiz Game - ShellWiz</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
@@ -28,10 +28,14 @@
         </nav>
     </header>
     
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Shell Command Quiz Game</h1>
+            <p class="page-subtitle">Test your knowledge of terminal commands and improve your shell skills</p>
+        </div>
+    </div>
+    
     <div class="container">
-        <h1>Shell Command Quiz Game</h1>
-        <p>Test your knowledge of terminal commands and improve your shell skills!</p>
-        
         <div class="quiz-modes">
             <button class="mode-btn active">Multiple Choice</button>
             <button class="mode-btn">Command Completion</button>
@@ -133,6 +137,53 @@
         </div>
     </div>
     
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -186,6 +237,7 @@
         </div>
     </div>
     
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 </body>
