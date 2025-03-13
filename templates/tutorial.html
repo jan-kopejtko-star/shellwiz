@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - ShellWiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}" class="active">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                <li><a href="#" class="login-btn">Login</a></li>
+                <li><a href="#" class="register-btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Shell Tutorials</h1>
+            <p class="page-subtitle">Learn the command line step by step with our interactive tutorials</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="tutorial-layout" style="display: flex; gap: 2rem;">
+            <div class="tutorial-sidebar" style="width: 250px;">
+                <button class="tutorial-nav-toggle">Tutorial Navigation</button>
+                <ul class="tutorial-nav">
+                    <li class="tutorial-nav-item">
+                        <a href="#intro" class="tutorial-nav-link active">Introduction to the Shell</a>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="#navigation" class="tutorial-nav-link">Navigation & Files</a>
+                        <ul class="tutorial-subnav">
+                            <li><a href="#navigation-basics" class="tutorial-subnav-link">Basic Navigation</a></li>
+                            <li><a href="#navigation-files" class="tutorial-subnav-link">Working with Files</a></li>
+                            <li><a href="#navigation-permissions" class="tutorial-subnav-link">File Permissions</a></li>
+                        </ul>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="#text" class="tutorial-nav-link">Text Processing</a>
+                        <ul class="tutorial-subnav">
+                            <li><a href="#text-viewing" class="tutorial-subnav-link">Viewing Files</a></li>
+                            <li><a href="#text-editing" class="tutorial-subnav-link">Editing Files</a></li>
+                            <li><a href="#text-search" class="tutorial-subnav-link">Searching in Files</a></li>
+                        </ul>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="#processes" class="tutorial-nav-link">Process Management</a>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="#scripting" class="tutorial-nav-link">Shell Scripting</a>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="#advanced" class="tutorial-nav-link">Advanced Topics</a>
+                        <span class="premium-badge" style="font-size: 0.8rem; padding: 0.1rem 0.4rem; margin-left: 0.5rem;">Premium</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="tutorial-content" style="flex: 1;">
+                <section id="intro">
+                    <h2>Introduction to the Shell</h2>
+                    
+                    <p>Welcome to the Shell! The command line interface (CLI) is a powerful tool that allows you to interact with your computer by typing commands. While graphical user interfaces (GUIs) are user-friendly, the command line offers greater power, flexibility, and automation capabilities.</p>
+                    
+                    <div class="terminal" style="margin: 2rem 0;">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="terminal-title">bash</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> echo "Hello, Shell World!"
+Hello, Shell World!
+<span class="prompt">user@shellwiz:~$</span> _
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>What is a Shell?</h3>
+                    
+                    <p>A shell is a program that provides an interface for users to interact with the operating system. It interprets commands that you type and passes them to the operating system to execute.</p>
+                    
+                    <p>There are various types of shells available, including:</p>
+                    
+                    <ul>
+                        <li><strong>Bash (Bourne Again Shell)</strong> - The most common shell on Linux and macOS</li>
+                        <li><strong>Zsh (Z Shell)</strong> - An extended version of Bash with additional features</li>
+                        <li><strong>Fish</strong> - A user-friendly shell with advanced features</li>
+                        <li><strong>PowerShell</strong> - Microsoft's task automation and configuration management framework</li>
+                        <li><strong>Command Prompt</strong> - The traditional Windows command interpreter</li>
+                    </ul>
+                    
+                    <p>In this tutorial series, we'll primarily focus on Bash, as it's the most widely used shell and the default on most Linux distributions.</p>
+                    
+                    <h3>Why Learn the Command Line?</h3>
+                    
+                    <p>Learning the command line offers several advantages:</p>
+                    
+                    <ul>
+                        <li><strong>Efficiency</strong> - Many tasks can be performed more quickly via the command line</li>
+                        <li><strong>Automation</strong> - You can script repetitive tasks to save time</li>
+                        <li><strong>Remote Access</strong> - Manage servers and remote systems without a GUI</li>
+                        <li><strong>System Administration</strong> - Many admin tasks require command line knowledge</li>
+                        <li><strong>Development</strong> - Essential for programming and software development</li>
+                    </ul>
+                    
+                    <h3>Your First Commands</h3>
+                    
+                    <p>Let's start with a few basic commands to get familiar with the shell:</p>
+                    
+                    <pre><code>echo "Hello, World!"    # Display text on the screen
+date                  # Display the current date and time
+whoami                # Display your username
+pwd                   # Print Working Directory (show current location)
+ls                    # List files and directories</code></pre>
+                    
+                    <p>Try these commands in the terminal to see their output. Don't worry if you don't understand everything yet - we'll cover each of these commands in detail in the upcoming sections.</p>
+                    
+                    <div class="note">
+                        <strong>Pro Tip:</strong> In the shell, commands are case-sensitive. Make sure to type them exactly as shown.
+                    </div>
+                    
+                    <h3>Command Structure</h3>
+                    
+                    <p>Most shell commands follow a similar structure:</p>
+                    
+                    <pre><code>command [options] [arguments]</code></pre>
+                    
+                    <ul>
+                        <li><strong>Command</strong> - The name of the program to run</li>
+                        <li><strong>Options</strong> - Modify how the command behaves (usually prefixed with - or --)</li>
+                        <li><strong>Arguments</strong> - The data the command operates on</li>
+                    </ul>
+                    
+                    <p>For example:</p>
+                    
+                    <pre><code>ls -l /home</code></pre>
+                    
+                    <p>In this command:</p>
+                    <ul>
+                        <li><code>ls</code> is the command</li>
+                        <li><code>-l</code> is an option that displays results in a detailed list format</li>
+                        <li><code>/home</code> is the argument specifying which directory to list</li>
+                    </ul>
+                    
+                    <h3>Ready to Continue?</h3>
+                    
+                    <p>Now that you understand the basics of the shell, let's move on to learning how to navigate the file system and work with files and directories.</p>
+                    
+                    <div class="tutorial-navigation" style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                        <button class="btn btn-secondary" disabled>Previous: Introduction</button>
+                        <button class="btn">Next: Navigation & Files</button>
+                    </div>
+                </section>
+                
+                <div class="premium-banner" style="margin: 3rem 0;">
+                    <h2>Upgrade for Full Tutorial Access</h2>
+                    <p>Unlock all tutorials, downloadable cheat sheets, and progress tracking with ShellWiz Premium</p>
+                    <button class="btn btn-premium">Go Premium</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to ShellWiz</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <span>Don't have an account? <a href="#" id="show-register">Register</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Login</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script>
+        // Add functionality to tutorial navigation
+        document.querySelectorAll('.tutorial-nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active class from all links
+                document.querySelectorAll('.tutorial-nav-link').forEach(l => {
+                    l.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // For demo purposes, we'll just alert instead of navigating
+                if (!this.href.endsWith('#intro')) {
+                    e.preventDefault();
+                    
+                    // Check if premium content
+                    if (this.href.endsWith('#advanced')) {
+                        alert('This is premium content. Please upgrade to access advanced tutorials.');
+                    } else {
+                        alert('In a full implementation, this would navigate to the ' + this.textContent + ' tutorial.');
+                    }
+                }
+            });
+        });
+        
+        // Add functionality to tutorial navigation toggle
+        document.querySelector('.tutorial-nav-toggle').addEventListener('click', function() {
+            document.querySelector('.tutorial-sidebar').classList.toggle('collapsed');
+        });
+        
+        // Add functionality to next button
+        document.querySelector('.tutorial-navigation .btn:not(.btn-secondary)').addEventListener('click', function() {
+            alert('In a full implementation, this would navigate to the Navigation & Files tutorial.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium - ShellWiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn active">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                <li><a href="#" class="login-btn">Login</a></li>
+                <li><a href="#" class="register-btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">ShellWiz Premium</h1>
+            <p class="page-subtitle">Upgrade your command line skills with our premium features</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="premium-banner">
+            <h2>Unlock the Full Power of ShellWiz</h2>
+            <p>Join thousands of developers who have accelerated their command line mastery with ShellWiz Premium</p>
+            <div class="premium-price">$9.99 <span>/month</span></div>
+            <button class="btn btn-premium">Get Started</button>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Why Go Premium?</h2>
+            <div class="card-content">
+                <p>ShellWiz Premium unlocks exclusive features to help you learn shell commands faster and more effectively. With our premium subscription, you'll get:</p>
+            </div>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">🔥</div>
+                    <h3 class="feature-title">Real Shell Access</h3>
+                    <p class="feature-desc">Practice in a real Linux or Windows environment with full shell access. Test any command safely in our secure containers.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Advanced Challenges</h3>
+                    <p class="feature-desc">Access 50+ premium challenges designed to test and improve your command line skills in real-world scenarios.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Progress Tracking</h3>
+                    <p class="feature-desc">Detailed analytics on your learning progress, with personalized recommendations to improve your weak areas.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">No Ads</h3>
+                    <p class="feature-desc">Enjoy an ad-free experience across the entire platform for distraction-free learning.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">Custom Command Sets</h3>
+                    <p class="feature-desc">Create and save custom sets of commands for your specific workflow or project requirements.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-content">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3 class="feature-title">Priority Support</h3>
+                    <p class="feature-desc">Get help with any command line issue from our team of shell experts with priority response times.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Compare Plans</h2>
+            <div class="card-content">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free</th>
+                            <th>Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Basic Quizzes</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Command Reference</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Basic Tutorials</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Real Shell Environment</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Advanced Challenges</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Progress Tracking</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Ad-Free Experience</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Custom Command Sets</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td>Priority Support</td>
+                            <td>❌</td>
+                            <td>✅</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="premium-banner">
+            <h2>Ready to Master the Command Line?</h2>
+            <p>Join ShellWiz Premium today and accelerate your command line skills!</p>
+            <button class="btn btn-premium">Subscribe Now</button>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">30-day money-back guarantee. Cancel anytime.</p>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3 class="faq-question">How does the real shell environment work?</h3>
+                    <p class="faq-answer">Our premium subscription gives you access to secure containerized Linux and Windows environments where you can practice any command safely. These environments are isolated, reset after each session, and provide a realistic terminal experience directly in your browser.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I cancel my subscription at any time?</h3>
+                    <p class="faq-answer">Yes, you can cancel your premium subscription at any time. If you cancel within the first 30 days, you'll receive a full refund. After that, your subscription will remain active until the end of the current billing cycle.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Is there a student discount available?</h3>
+                    <p class="faq-answer">Yes! Students with a valid .edu email address can get 50% off the regular premium subscription price. Contact our support team after signing up to verify your student status and receive your discount.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Are there team or organization plans available?</h3>
+                    <p class="faq-answer">Absolutely! We offer team plans starting at 5 users with volume discounts and centralized billing. For larger organizations, we also provide custom enterprise solutions with dedicated support and advanced features. Contact our sales team for details.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How secure is the real shell environment?</h3>
+                    <p class="faq-answer">Our shell environments are highly secured through container isolation, network restrictions, and automatic session timeouts. Each user gets their own dedicated environment that's completely isolated from other users and resets after each session for maximum security.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to ShellWiz</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <span>Don't have an account? <a href="#" id="show-register">Register</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Login</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - ShellWiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}" class="active">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                <li><a href="#" class="login-btn">Login</a></li>
+                <li><a href="#" class="register-btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">About ShellWiz</h1>
+            <p class="page-subtitle">Learn about our mission to make command line learning fun and accessible</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title">Our Story</h2>
+            <div class="card-content">
+                <p>ShellWiz was born out of frustration with traditional command line learning resources. As developers ourselves, we found that most tutorials were dry, boring, and failed to engage new learners effectively.</p>
+                
+                <p>We believe that learning the command line should be fun, interactive, and rewarding. That's why we created ShellWiz — a platform that turns command line learning into an engaging experience through gamification, challenges, and a supportive community.</p>
+                
+                <p>Since our launch in 2023, we've helped over 100,000 developers improve their command line skills and become more productive in their daily work.</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Our Mission</h2>
+            <div class="card-content">
+                <p>At ShellWiz, our mission is to make command line expertise accessible to everyone, regardless of their technical background or experience level.</p>
+                
+                <p>We believe that proficiency with the command line is a fundamental skill for developers, system administrators, and IT professionals. By breaking down complex concepts into engaging, bite-sized lessons, we aim to remove the intimidation factor and help users build confidence through practice and accomplishment.</p>
+                
+                <p>Our goal is to create a world where every developer feels empowered to leverage the full power of the command line in their daily work.</p>
+            </div>
+        </div>
+        
+        <div class="about-section">
+            <h2 class="section-title">Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/team1.jpg') }}" alt="Team Member" class="team-avatar">
+                    <h3 class="team-name">Alex Johnson</h3>
+                    <p class="team-role">Founder & CEO</p>
+                    <div class="team-social">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/team2.jpg') }}" alt="Team Member" class="team-avatar">
+                    <h3 class="team-name">Samantha Chen</h3>
+                    <p class="team-role">CTO</p>
+                    <div class="team-social">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/team3.jpg') }}" alt="Team Member" class="team-avatar">
+                    <h3 class="team-name">Miguel Rodriguez</h3>
+                    <p class="team-role">Lead Developer</p>
+                    <div class="team-social">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/team4.jpg') }}" alt="Team Member" class="team-avatar">
+                    <h3 class="team-name">Emily Taylor</h3>
+                    <p class="team-role">Content Director</p>
+                    <div class="team-social">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3 class="faq-question">Is ShellWiz suitable for complete beginners?</h3>
+                    <p class="faq-answer">Absolutely! ShellWiz is designed to be accessible to users of all skill levels. Our tutorials start with the basics and gradually introduce more advanced concepts as you progress. The gamified approach makes it easy to learn at your own pace.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Which operating systems are supported?</h3>
+                    <p class="faq-answer">ShellWiz covers shell commands for Linux, macOS, and Windows (PowerShell and Command Prompt). Our platform automatically detects your operating system and can show you commands relevant to your environment.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How often is new content added?</h3>
+                    <p class="faq-answer">We add new tutorials, challenges, and quiz questions every week. Premium members get early access to new content and can request specific topics they'd like us to cover.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I use ShellWiz for my team or organization?</h3>
+                    <p class="faq-answer">Yes! We offer team plans for companies and educational institutions. These plans include features like progress tracking, custom learning paths, and team leaderboards. Contact our sales team for more information.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How do I contribute to ShellWiz?</h3>
+                    <p class="faq-answer">We welcome contributions from the community! You can suggest new challenges, report bugs, or even contribute content. Check out our GitHub repository or contact us directly if you're interested in becoming a contributor.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Get in Touch</h2>
+            <div class="card-content">
+                <p>Have questions, feedback, or just want to say hello? We'd love to hear from you!</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>hello@shellwiz.com</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Terminal Street, San Francisco, CA 94103</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i> Discord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to ShellWiz</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <span>Don't have an account? <a href="#" id="show-register">Register</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Login</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

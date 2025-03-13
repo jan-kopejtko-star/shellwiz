@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Reference - ShellWiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}" class="active">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                <li><a href="#" class="login-btn">Login</a></li>
+                <li><a href="#" class="register-btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Command Reference</h1>
+            <p class="page-subtitle">Your comprehensive guide to shell commands</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title">Search Commands</h2>
+            <div class="card-content">
+                <div class="search-box">
+                    <input type="text" id="command-search" placeholder="Search for a command...">
+                    <button class="btn">Search</button>
+                </div>
+                <div class="quiz-modes">
+                    <button class="mode-btn active">All</button>
+                    <button class="mode-btn">File Operations</button>
+                    <button class="mode-btn">Navigation</button>
+                    <button class="mode-btn">Process</button>
+                    <button class="mode-btn">Network</button>
+                    <button class="mode-btn">System</button>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">File Operations</h2>
+        <div class="command-grid">
+            <div class="command-card">
+                <h3 class="command-name">ls</h3>
+                <p class="command-desc">List directory contents</p>
+                <pre class="command-example">ls -la</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">cp</h3>
+                <p class="command-desc">Copy files and directories</p>
+                <pre class="command-example">cp file.txt backup/</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">mv</h3>
+                <p class="command-desc">Move or rename files and directories</p>
+                <pre class="command-example">mv old.txt new.txt</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">rm</h3>
+                <p class="command-desc">Remove files or directories</p>
+                <pre class="command-example">rm -rf directory/</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">mkdir</h3>
+                <p class="command-desc">Create directories</p>
+                <pre class="command-example">mkdir -p parent/child</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">touch</h3>
+                <p class="command-desc">Create empty files or update timestamps</p>
+                <pre class="command-example">touch newfile.txt</pre>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Navigation</h2>
+        <div class="command-grid">
+            <div class="command-card">
+                <h3 class="command-name">cd</h3>
+                <p class="command-desc">Change the current directory</p>
+                <pre class="command-example">cd /home/user/documents</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">pwd</h3>
+                <p class="command-desc">Print working directory</p>
+                <pre class="command-example">pwd</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">find</h3>
+                <p class="command-desc">Search for files in a directory hierarchy</p>
+                <pre class="command-example">find . -name "*.txt"</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">locate</h3>
+                <p class="command-desc">Find files by name</p>
+                <pre class="command-example">locate filename</pre>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Process Management</h2>
+        <div class="command-grid">
+            <div class="command-card">
+                <h3 class="command-name">ps</h3>
+                <p class="command-desc">Report a snapshot of current processes</p>
+                <pre class="command-example">ps aux</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">top</h3>
+                <p class="command-desc">Display Linux processes</p>
+                <pre class="command-example">top</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">kill</h3>
+                <p class="command-desc">Terminate processes</p>
+                <pre class="command-example">kill -9 1234</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">nice</h3>
+                <p class="command-desc">Run a program with modified scheduling priority</p>
+                <pre class="command-example">nice -n 10 command</pre>
+            </div>
+        </div>
+        
+        <div class="premium-banner">
+            <h2>Unlock 200+ Advanced Commands</h2>
+            <p>Get access to our complete command reference including advanced system administration, networking, and security commands with detailed examples.</p>
+            <button class="btn btn-premium">Upgrade to Premium</button>
+        </div>
+        
+        <h2 class="section-title">Text Processing</h2>
+        <div class="command-grid">
+            <div class="command-card">
+                <h3 class="command-name">grep</h3>
+                <p class="command-desc">Search for patterns in files</p>
+                <pre class="command-example">grep "pattern" file.txt</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">sed</h3>
+                <p class="command-desc">Stream editor for filtering and transforming text</p>
+                <pre class="command-example">sed 's/old/new/g' file.txt</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">awk</h3>
+                <p class="command-desc">Pattern scanning and processing language</p>
+                <pre class="command-example">awk '{print $1}' file.txt</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">cat</h3>
+                <p class="command-desc">Concatenate and display files</p>
+                <pre class="command-example">cat file.txt</pre>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Networking</h2>
+        <div class="command-grid">
+            <div class="command-card">
+                <h3 class="command-name">ping</h3>
+                <p class="command-desc">Send ICMP ECHO_REQUEST to network hosts</p>
+                <pre class="command-example">ping google.com</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">ifconfig</h3>
+                <p class="command-desc">Configure network interface parameters</p>
+                <pre class="command-example">ifconfig eth0</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">netstat</h3>
+                <p class="command-desc">Print network connections, routing tables, etc.</p>
+                <pre class="command-example">netstat -tuln</pre>
+            </div>
+            
+            <div class="command-card">
+                <h3 class="command-name">ssh</h3>
+                <p class="command-desc">OpenSSH SSH client (remote login program)</p>
+                <pre class="command-example">ssh user@hostname</pre>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to ShellWiz</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <span>Don't have an account? <a href="#" id="show-register">Register</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Login</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script>
+        // Add functionality to filter buttons
+        document.querySelectorAll('.quiz-modes .mode-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.quiz-modes .mode-btn.active').classList.remove('active');
+                this.classList.add('active');
+                // In a real implementation, this would filter the commands
+                alert('This would filter commands to show only ' + this.textContent + ' commands in a full implementation.');
+            });
+        });
+        
+        // Add functionality to search box
+        document.getElementById('command-search').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                alert('This would search for "' + this.value + '" in a full implementation.');
+            }
+        });
+    </script>
+</body>
+</html>

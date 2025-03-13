@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - ShellWiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}" class="active">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                <li><a href="#" class="login-btn">Login</a></li>
+                <li><a href="#" class="register-btn">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Leaderboard</h1>
+            <p class="page-subtitle">See how you stack up against other shell wizards</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title">Top Players This Month</h2>
+            <div class="card-content">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>User</th>
+                            <th>Quizzes</th>
+                            <th>Challenges</th>
+                            <th>Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="rank rank-1">1</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar1.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">CommandMaster</span>
+                                    <span class="user-badge">PRO</span>
+                                </div>
+                            </td>
+                            <td>247</td>
+                            <td>36</td>
+                            <td>15,842</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank rank-2">2</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar2.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">ShellNinja</span>
+                                    <span class="user-badge">PRO</span>
+                                </div>
+                            </td>
+                            <td>198</td>
+                            <td>42</td>
+                            <td>14,356</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank rank-3">3</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar3.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">TerminalTyrant</span>
+                                </div>
+                            </td>
+                            <td>215</td>
+                            <td>28</td>
+                            <td>13,827</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">4</span></td>
+                            <td>
+                                <div class="user-info"><img src="{{ url_for('static', filename='img/avatar4.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">BashGuru</span>
+                                    <span class="user-badge">PRO</span>
+                                </div>
+                            </td>
+                            <td>182</td>
+                            <td>32</td>
+                            <td>12,498</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">5</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar5.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">CommandLineHero</span>
+                                </div>
+                            </td>
+                            <td>165</td>
+                            <td>29</td>
+                            <td>11,273</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">6</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar6.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">LinuxLegend</span>
+                                    <span class="user-badge">PRO</span>
+                                </div>
+                            </td>
+                            <td>157</td>
+                            <td>24</td>
+                            <td>10,856</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">7</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar7.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">PowerShellPro</span>
+                                </div>
+                            </td>
+                            <td>142</td>
+                            <td>26</td>
+                            <td>9,944</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">8</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar8.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">ScriptSage</span>
+                                    <span class="user-badge">PRO</span>
+                                </div>
+                            </td>
+                            <td>128</td>
+                            <td>31</td>
+                            <td>9,712</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">9</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar9.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">TerminalTitan</span>
+                                </div>
+                            </td>
+                            <td>134</td>
+                            <td>22</td>
+                            <td>9,235</td>
+                        </tr>
+                        <tr>
+                            <td><span class="rank">10</span></td>
+                            <td>
+                                <div class="user-info">
+                                    <img src="{{ url_for('static', filename='img/avatar10.jpg') }}" alt="User Avatar" class="user-avatar">
+                                    <span class="user-name">ConsoleCommander</span>
+                                    <span class="user-badge">PRO</span>
+                                </div>
+                            </td>
+                            <td>121</td>
+                            <td>25</td>
+                            <td>8,976</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Leaderboard Categories</h2>
+            <div class="quiz-modes">
+                <button class="mode-btn active">Monthly</button>
+                <button class="mode-btn">All Time</button>
+                <button class="mode-btn">Quizzes</button>
+                <button class="mode-btn">Challenges</button>
+                <button class="mode-btn">Beginners</button>
+            </div>
+        </div>
+        
+        <div class="premium-banner">
+            <h2>Want to climb the ranks faster?</h2>
+            <p>Premium members get access to exclusive challenges worth 2x the points and advanced quizzes to boost your score!</p>
+            <button class="btn btn-premium">Upgrade to Premium</button>
+        </div>
+        
+        <div class="card">
+            <h2 class="card-title">Your Rank</h2>
+            <div class="card-content">
+                <p>Log in to see your position on the leaderboard and track your progress!</p>
+                <button class="btn login-trigger">Login</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to ShellWiz</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-full">Login</button>
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <span>Don't have an account? <a href="#" id="show-register">Register</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirm Password</label>
+                    <input type="password" id="register-confirm" required>
+                </div>
+                <button type="submit" class="btn btn-full">Create Account</button>
+                <div class="form-footer">
+                    <span>Already have an account? <a href="#" id="show-login">Login</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+    <script>
+        // Add functionality to login trigger
+        document.querySelector('.login-trigger').addEventListener('click', function() {
+            document.getElementById('loginModal').style.display = 'flex';
+        });
+        
+        // Add functionality to leaderboard category buttons
+        document.querySelectorAll('.quiz-modes .mode-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.quiz-modes .mode-btn.active').classList.remove('active');
+                this.classList.add('active');
+                // In a real implementation, this would load different leaderboard data
+                alert('This would load the ' + this.textContent + ' leaderboard in a full implementation.');
+            });
+        });
+    </script>
+</body>
+</html>
