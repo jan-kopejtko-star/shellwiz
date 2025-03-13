@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - ShellWiz</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='img/android-chrome-192x192.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                {% if current_user.is_authenticated %}
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            Hello, {{ current_user.username }} <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a>
+                            {% if current_user.is_premium %}
+                                <a href="{{ url_for('premium_dashboard') }}"><i class="fas fa-crown"></i> Premium Dashboard</a>
+                            {% else %}
+                                <a href="{{ url_for('premium') }}"><i class="fas fa-crown"></i> Upgrade to Premium</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Flash Messages Section -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                        <span class="close-flash">&times;</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-avatar">
+                {% if current_user.profile_image_url %}
+                    <img src="{{ current_user.profile_image_url }}" alt="{{ current_user.username }}'s avatar">
+                {% else %}
+                    <div class="default-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+                <h2>{{ current_user.username }}</h2>
+                <p class="user-email">{{ current_user.email }}</p>
+                
+                {% if current_user.is_premium %}
+                    <div class="premium-badge">
+                        <i class="fas fa-crown"></i> Premium Member
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="profile-nav">
+                <a href="{{ url_for('profile') }}" class="active">
+                    <i class="fas fa-user"></i> Profile Overview
+                </a>
+                <a href="{{ url_for('settings') }}">
+                    <i class="fas fa-cog"></i> Account Settings
+                </a>
+                <a href="#">
+                    <i class="fas fa-history"></i> Activity History
+                </a>
+                <a href="#">
+                    <i class="fas fa-star"></i> Achievements
+                </a>
+            </div>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-header">
+                <h1>Profile Overview</h1>
+                <p>Manage your account and see your progress</p>
+            </div>
+            
+            <div class="stats-grid profile-stats">
+                <div class="stat-item">
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Commands Mastered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Challenges Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Quizzes Taken</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">720</div>
+                    <div class="stat-label">Total Points</div>
+                </div>
+            </div>
+            
+            <div class="profile-sections">
+                <div class="profile-section">
+                    <h3><i class="fas fa-chart-line"></i> Recent Progress</h3>
+                    <div class="progress-cards">
+                        <div class="progress-card">
+                            <div class="progress-card-title">Command Mastery</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%;">35%</div>
+                            </div>
+                            <div class="progress-details">
+                                <span>42/120 Commands</span>
+                                <a href="#" class="btn-small">Continue Learning</a>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-card">
+                            <div class="progress-card-title">Tutorial Completion</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;">60%</div>
+                            </div>
+                            <div class="progress-details">
+                                <span>12/20 Sections</span>
+                                <a href="#" class="btn-small">Continue Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h3><i class="fas fa-trophy"></i> Recent Achievements</h3>
+                    <div class="achievements-grid">
+                        <div class="achievement-card">
+                            <div class="achievement-icon"><i class="fas fa-terminal"></i></div>
+                            <div class="achievement-info">
+                                <h4>Command Novice</h4>
+                                <p>Mastered 25 basic commands</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <div class="achievement-icon"><i class="fas fa-puzzle-piece"></i></div>
+                            <div class="achievement-info">
+                                <h4>Challenge Accepted</h4>
+                                <p>Completed your first challenge</p>
+                            </div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <div class="achievement-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="achievement-info">
+                                <h4>Tutorial Master</h4>
+                                <p>Completed the Basics tutorial</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="see-all-link">See all achievements <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="profile-section">
+                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                    <div class="activity-timeline">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="activity-info">
+                                <h4>Completed "File Navigation" Quiz</h4>
+                                <p>Score: 9/10</p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="activity-info">
+                                <h4>Earned "Command Novice" Achievement</h4>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-book"></i></div>
+                            <div class="activity-info">
+                                <h4>Started "Advanced Permissions" Tutorial</h4>
+                                <span class="activity-time">5 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="see-all-link">See all activity <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/user-menu.js') }}"></script>
+    <script>
+        // Script to handle flash message close buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-flash');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+
+            // Auto-remove flash messages after 5 seconds
+            setTimeout(() => {
+                const flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(message => {
+                    message.remove();
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

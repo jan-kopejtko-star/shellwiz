@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Dashboard - ShellWiz</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='img/android-chrome-192x192.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                {% if current_user.is_authenticated %}
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            Hello, {{ current_user.username }} <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a>
+                            {% if current_user.is_premium %}
+                                <a href="{{ url_for('premium_dashboard') }}"><i class="fas fa-crown"></i> Premium Dashboard</a>
+                            {% else %}
+                                <a href="{{ url_for('premium') }}"><i class="fas fa-crown"></i> Upgrade to Premium</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Flash Messages Section -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                        <span class="close-flash">&times;</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="premium-dashboard">
+        <div class="premium-dashboard-header">
+            <div class="container">
+                <div class="premium-header-content">
+                    <h1><i class="fas fa-crown"></i> Premium Dashboard</h1>
+                    <p>Access your exclusive premium features and content</p>
+                    <div class="premium-status">
+                        <div class="status-badge">
+                            <i class="fas fa-check-circle"></i> Premium Active
+                        </div>
+                        <div class="expiry-info">
+                            {% if current_user.premium_expiry %}
+                                Expires on: {{ current_user.premium_expiry.strftime('%B %d, %Y') }}
+                            {% else %}
+                                Lifetime Membership
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="premium-features-overview">
+                <h2>Premium Features</h2>
+                <div class="premium-feature-grid">
+                    <div class="premium-feature-card">
+                        <div class="feature-icon"><i class="fas fa-terminal"></i></div>
+                        <h3>Live Shell Environment</h3>
+                        <p>Practice commands in a safe, real-time environment right in your browser.</p>
+                        <a href="#" class="btn btn-premium">Launch Shell</a>
+                    </div>
+                    
+                    <div class="premium-feature-card">
+                        <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <h3>Advanced Challenges</h3>
+                        <p>Access 50+ advanced challenges designed for real-world scenarios.</p>
+                        <a href="{{ url_for('challenges') }}" class="btn btn-premium">View Challenges</a>
+                    </div>
+                    
+                    <div class="premium-feature-card">
+                        <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Expert Tutorials</h3>
+                        <p>Explore in-depth tutorials written by shell experts and DevOps professionals.</p>
+                        <a href="{{ url_for('tutorial') }}" class="btn btn-premium">View Tutorials</a>
+                    </div>
+                    
+                    <div class="premium-feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Advanced Analytics</h3>
+                        <p>Get detailed insights into your learning progress and skill development.</p>
+                        <a href="#" class="btn btn-premium">View Analytics</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="premium-content-section">
+                <div class="section-header">
+                    <h2>Exclusive Premium Content</h2>
+                    <a href="#" class="view-all-link">View all <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="premium-content-tabs">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-target="tutorials">Tutorials</button>
+                        <button class="tab-btn" data-target="challenges">Challenges</button>
+                        <button class="tab-btn" data-target="commands">Commands</button>
+                    </div>
+                    
+                    <div class="tabs-content">
+                        <div class="tab-panel active" id="tutorials">
+                            <div class="content-grid">
+                                <div class="content-card">
+                                    <div class="content-badge">New</div>
+                                    <h4>Advanced Shell Scripting</h4>
+                                    <p>Learn how to automate complex tasks with advanced shell scripts.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-clock"></i> 45 minutes</span>
+                                        <span><i class="fas fa-signal"></i> Advanced</span>
+                                    </div>
+                                    <a href="#" class="btn-small">Start Tutorial</a>
+                                </div>
+                                
+                                <div class="content-card">
+                                    <h4>Custom Shell Environments</h4>
+                                    <p>Create your perfect terminal setup with custom configurations.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-clock"></i> 30 minutes</span>
+                                        <span><i class="fas fa-signal"></i> Intermediate</span>
+                                    </div>
+                                    <a href="#" class="btn-small">Start Tutorial</a>
+                                </div>
+                                
+                                <div class="content-card">
+                                    <h4>Regex Mastery</h4>
+                                    <p>Master regular expressions for powerful text parsing and manipulation.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-clock"></i> 60 minutes</span>
+                                        <span><i class="fas fa-signal"></i> Advanced</span>
+                                    </div>
+                                    <a href="#" class="btn-small">Start Tutorial</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="challenges">
+                            <div class="content-grid">
+                                <div class="content-card">
+                                    <div class="content-badge">New</div>
+                                    <h4>Server Deployment</h4>
+                                    <p>Configure and deploy a web server using only command line tools.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-clock"></i> 90 minutes</span>
+                                        <span><i class="fas fa-signal"></i> Expert</span>
+                                    </div>
+                                    <a href="#" class="btn-small">Start Challenge</a>
+                                </div>
+                                
+                                <div class="content-card">
+                                    <h4>Log Analysis</h4>
+                                    <p>Parse server logs to identify security threats and performance issues.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-clock"></i> 60 minutes</span>
+                                        <span><i class="fas fa-signal"></i> Advanced</span>
+                                    </div>
+                                    <a href="#" class="btn-small">Start Challenge</a>
+                                </div>
+                                
+                                <div class="content-card">
+                                    <h4>Automation Pipeline</h4>
+                                    <p>Build a complete CI/CD pipeline using shell scripts and command line tools.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-clock"></i> 120 minutes</span>
+                                        <span><i class="fas fa-signal"></i> Expert</span>
+                                    </div>
+                                    <a href="#" class="btn-small">Start Challenge</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="commands">
+                            <div class="content-grid">
+                                <div class="content-card">
+                                    <div class="content-badge">New</div>
+                                    <h4>Advanced Find Commands</h4>
+                                    <p>Master complex file search patterns with find and its powerful options.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-book"></i> 25 commands</span>
+                                        <span><i class="fas fa-signal"></i> Advanced</span>
+                                    </div>
+                                    <a href="#" class="btn-small">View Commands</a>
+                                </div>
+                                
+                                <div class="content-card">
+                                    <h4>Network Diagnostics</h4>
+                                    <p>Comprehensive guide to networking commands for troubleshooting.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-book"></i> 18 commands</span>
+                                        <span><i class="fas fa-signal"></i> Intermediate</span>
+                                    </div>
+                                    <a href="#" class="btn-small">View Commands</a>
+                                </div>
+                                
+                                <div class="content-card">
+                                    <h4>Performance Monitoring</h4>
+                                    <p>System performance monitoring and analysis commands for power users.</p>
+                                    <div class="content-meta">
+                                        <span><i class="fas fa-book"></i> 15 commands</span>
+                                        <span><i class="fas fa-signal"></i> Advanced</span>
+                                    </div>
+                                    <a href="#" class="btn-small">View Commands</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="premium-subscription-info">
+                <h2>Subscription Management</h2>
+                <div class="subscription-details">
+                    <div class="subscription-card">
+                        <div class="card-header">
+                            <h3>Premium Plan</h3>
+                            <span class="plan-badge">Annual</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="plan-price">
+                                <span class="price">$89.99</span>
+                                <span class="period">/ year</span>
+                            </div>
+                            <div class="plan-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>All Premium Features</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Live Shell Environment</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Advanced Challenges</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Expert Tutorials</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Priority Support</span>
+                                </div>
+                            </div>
+                            
+                            <div class="subscription-actions">
+                                <a href="#" class="btn btn-outline">Manage Subscription</a>
+                                {% if current_user.premium_expiry %}
+                                    <p class="renewal-info">Auto-renews on {{ current_user.premium_expiry.strftime('%B %d, %Y') }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="billing-history">
+                        <h3>Billing History</h3>
+                        <div class="billing-table">
+                            <div class="billing-header">
+                                <div class="date">Date</div>
+                                <div class="description">Description</div>
+                                <div class="amount">Amount</div>
+                                <div class="actions">Actions</div>
+                            </div>
+                            
+                            <div class="billing-row">
+                                <div class="date">March 1, 2025</div>
+                                <div class="description">Annual Premium Subscription</div>
+                                <div class="amount">$89.99</div>
+                                <div class="actions"><a href="#">View Receipt</a></div>
+                            </div>
+                            
+                            <div class="billing-row">
+                                <div class="date">March 1, 2024</div>
+                                <div class="description">Annual Premium Subscription</div>
+                                <div class="amount">$89.99</div>
+                                <div class="actions"><a href="#">View Receipt</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/user-menu.js') }}"></script>
+    <script>
+        // Script to handle flash message close buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-flash');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+
+            // Auto-remove flash messages after 5 seconds
+            setTimeout(() => {
+                const flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(message => {
+                    message.remove();
+                });
+            }, 5000);
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons and panels
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding panel
+                    const targetPanel = document.getElementById(this.dataset.target);
+                    if (targetPanel) {
+                        targetPanel.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

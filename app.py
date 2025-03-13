@@ -147,6 +147,123 @@ def send_static(path):
     """Route for serving static files"""
     return send_from_directory('static', path)
 
+# Add these route handlers to your app.py file
+
+@app.route('/profile')
+@login_required
+def profile():
+    """User profile page route"""
+    return render_template('profile.html')
+
+@app.route('/settings')
+@login_required
+def settings():
+    """User settings page route"""
+    return render_template('settings.html')
+
+@app.route('/premium-dashboard')
+@login_required
+def premium_dashboard():
+    """Premium dashboard page route"""
+    if not current_user.is_premium:
+        flash('This feature is only available to premium users.', 'error')
+        return redirect(url_for('premium'))
+    return render_template('premium_dashboard.html')
+
+# Settings form handlers
+@app.route('/settings/update-profile', methods=['POST'])
+@login_required
+def settings_update_profile():
+    """Handle profile information updates"""
+    username = request.form.get('username')
+    email = request.form.get('email')
+    profile_image_url = request.form.get('profile_image_url')
+    
+    # Check if username is already taken
+    if username != current_user.username:
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already taken.', 'error')
+            return redirect(url_for('settings'))
+    
+    # Check if email is already taken
+    if email != current_user.email:
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            flash('Email already registered.', 'error')
+            return redirect(url_for('settings'))
+    
+    # Update user information
+    current_user.username = username
+    current_user.email = email
+    current_user.profile_image_url = profile_image_url
+    
+    db.session.commit()
+    flash('Profile information updated successfully.', 'success')
+    return redirect(url_for('settings'))
+
+@app.route('/settings/change-password', methods=['POST'])
+@login_required
+def settings_change_password():
+    """Handle password changes"""
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+    
+    # Verify current password
+    if not bcrypt.check_password_hash(current_user.password_hash, current_password):
+        flash('Current password is incorrect.', 'error')
+        return redirect(url_for('settings'))
+    
+    # Check if new passwords match
+    if new_password != confirm_password:
+        flash('New passwords do not match.', 'error')
+        return redirect(url_for('settings'))
+    
+    # Update password
+    hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+    current_user.password_hash = hashed_password
+    
+    db.session.commit()
+    flash('Password updated successfully.', 'success')
+    return redirect(url_for('settings'))
+
+@app.route('/settings/update-preferences', methods=['POST'])
+@login_required
+def settings_update_preferences():
+    """Handle user preference updates"""
+    dark_mode = 'dark_mode' in request.form
+    email_notifications = 'email_notifications' in request.form
+    show_hints = 'show_hints' in request.form
+    preferred_shell = request.form.get('preferred_shell')
+    
+    # Check if user has preferences, create if not
+    user_preferences = current_user.preferences
+    if not user_preferences:
+        user_preferences = UserPreference(user_id=current_user.user_id)
+        db.session.add(user_preferences)
+    
+    # Update preferences
+    user_preferences.dark_mode = dark_mode
+    user_preferences.email_notifications = email_notifications
+    user_preferences.show_hints = show_hints
+    user_preferences.preferred_shell = preferred_shell
+    
+    db.session.commit()
+    flash('Preferences updated successfully.', 'success')
+    return redirect(url_for('settings'))
+
+@app.route('/settings/delete-account', methods=['POST'])
+@login_required
+def settings_delete_account():
+    """Handle account deletion"""
+    # Delete user data
+    # Be careful with cascading deletes here
+    
+    # For now, just log the user out
+    logout_user()
+    flash('Your account has been deleted.', 'info')
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
