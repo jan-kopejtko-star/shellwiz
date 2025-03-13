@@ -30,8 +30,8 @@
                 <li><a href="{{ url_for('about') }}">About</a></li>
             </ul>
             <ul class="auth-nav">
-                <li><a href="#" class="login-btn">Login</a></li>
-                <li><a href="#" class="register-btn">Register</a></li>
+                <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
             </ul>
         </nav>
     </header>
@@ -44,6 +44,7 @@
                 <div class="hero-buttons">
                     <a href="{{ url_for('quiz') }}" class="btn btn-large">Start Quiz Game</a>
                     <a href="{{ url_for('premium') }}" class="btn btn-large btn-premium">Go Premium</a>
+                    <a href="{{ url_for('register') }}" class="btn btn-large btn-premium">Sign Up Free</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -176,6 +177,7 @@ Welcome to ShellWiz! Ready to master the command line?
             </div>
             <div class="centered-button">
                 <a href="{{ url_for('quiz') }}" class="btn btn-large">Start Learning Now</a>
+                <a href="{{ url_for('register') }}" class="btn btn-large btn-premium">Create Account</a>
             </div>
         </div>
     </div>
