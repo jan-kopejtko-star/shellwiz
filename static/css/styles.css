@@ -32,18 +32,29 @@ header {
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
+    margin-right: 1.5rem;
 }
 
 .logo span {
     color: var(--accent);
 }
 
-nav ul {
+nav {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.main-nav, .auth-nav {
     display: flex;
     list-style: none;
     gap: 1rem;
     padding: 0;
     margin: 0;
+}
+
+.auth-nav {
+    margin-left: auto;
 }
 
 nav a {
@@ -73,6 +84,32 @@ nav a:hover, nav a.active {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background: linear-gradient(135deg, #9c59b6, #734eb5);
+}
+
+/* Auth buttons */
+.login-btn, .register-btn {
+    padding: 0.4rem 1rem !important;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease !important;
+}
+
+.login-btn {
+    border: 1px solid white;
+}
+
+.login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.register-btn {
+    background-color: white;
+    color: var(--dark) !important;
+}
+
+.register-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
 }
 
 .container {
@@ -257,6 +294,10 @@ nav a:hover, nav a.active {
 
 .btn-secondary:hover {
     background-color: #616161;
+}
+
+.btn-full {
+    width: 100%;
 }
 
 /* Premium button styling for content area */
@@ -455,4 +496,124 @@ nav a:hover, nav a.active {
 .difficulty-hard .difficulty-dot:nth-child(2),
 .difficulty-hard .difficulty-dot:nth-child(3) {
     background-color: #F44336;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: var(--dark);
+}
+
+.auth-form {
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.form-footer {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+    
+    nav {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .main-nav, .auth-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .auth-nav {
+        margin-top: 1rem;
+    }
+    
+    .options {
+        grid-template-columns: 1fr;
+    }
+    
+    .achievements {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .form-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
 }
