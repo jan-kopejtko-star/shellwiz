@@ -4,8 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
+from flask_wtf.csrf import CSRFProtect
 import os
 from datetime import datetime
+
+# Initialize CSRF protection
+csrf = CSRFProtect(app)
 
 app = Flask(__name__)
 
