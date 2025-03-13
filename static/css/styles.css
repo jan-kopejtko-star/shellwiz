@@ -1636,3 +1636,35 @@ footer {
 .form-footer a:hover {
     text-decoration: underline;
 }
+
+/* Add to your styles.css */
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-check-input {
+    margin-right: 8px;
+}
+
+.form-check-label {
+    font-weight: 400;
+    color: #555;
+}
+
+.active {
+    color: #4a6cf7;
+    font-weight: 600;
+}
+
+.forgot-password {
+    display: block;
+    margin-bottom: 10px;
+    color: #4a6cf7;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

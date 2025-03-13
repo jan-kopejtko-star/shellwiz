@@ -6,6 +6,9 @@ from flask_bcrypt import Bcrypt
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
+from forms import RegistrationForm, LoginForm
+from models import User, UserPreference
 import os
 
 app = Flask(__name__)
@@ -19,6 +22,22 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 bcrypt = Bcrypt(app)
+
+# Initialize login manager
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# Modify User class to work with Flask-Login
+class User(db.Model, UserMixin):
+    # Your existing User model code
+    # Need to add UserMixin inheritance and implement get_id
+    def get_id(self):
+        return str(self.user_id)
 
 # Import models (after db is defined)
 from models import *
@@ -97,6 +116,41 @@ def register():
     
     return render_template('register.html', form=form)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    # Redirect if user is already logged in
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        
+        # Check if user exists and password is correct
+        if user and bcrypt.check_password_hash(user.password_hash, form.password.data):
+            # Update last login time
+            user.last_login = datetime.utcnow()
+            db.session.commit()
+            
+            # Log in the user
+            login_user(user, remember=form.remember.data)
+            
+            # Get the page the user was trying to access
+            next_page = request.args.get('next')
+            flash('Login successful!', 'success')
+            
+            # Redirect to the next page or home
+            return redirect(next_page if next_page else url_for('index'))
+        else:
+            flash('Login failed. Please check your email and password.', 'error')
+    
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('index'))
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
