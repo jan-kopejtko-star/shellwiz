@@ -798,3 +798,85 @@
 .category-header-scripting {
     background: linear-gradient(135deg, #FF9800, #E65100);
 }
+
+/* Category Card Content Styling */
+.category-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Category Title Styling */
+.category-title {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Category Icon Styling */
+.category-icon {
+    font-size: 24px;
+}
+
+/* Category Header Background Gradients */
+.category-header-sysadmin {
+    background: linear-gradient(135deg, #9C27B0, #4A148C);
+}
+
+.category-header-network {
+    background: linear-gradient(135deg, #4CAF50, #1B5E20);
+}
+
+.category-header-git {
+    background: linear-gradient(135deg, #F44336, #B71C1C);
+}
+
+.category-header-text {
+    background: linear-gradient(135deg, #2196F3, #0D47A1);
+}
+
+.category-header-scripting {
+    background: linear-gradient(135deg, #FF9800, #E65100);
+}
+
+/* Category Grid Layout */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 25px;
+}
+
+/* Category Card Styling */
+.category-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Category Header Base Styling */
+.category-header {
+    background: linear-gradient(135deg, #4a6cf7, #7a3bff);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+/* Tutorial Meta Styling */
+.tutorial-meta {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 15px;
+}
