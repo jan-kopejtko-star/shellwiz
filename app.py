@@ -248,45 +248,6 @@ def tutorial_section(section_slug):
         flash('This tutorial is coming soon. Check back later!', 'info')
         return redirect(url_for('tutorial_index'))
 
-@app.route('/tutorial/<section_slug>/<page_slug>')
-def tutorial_page(section_slug, page_slug):
-    """Display a specific tutorial page"""
-    # In a real implementation, you would look up both the section and page in the database
-    # For now, we'll use a simplified approach
-    
-    # Mock check for premium content
-    if section_slug in ['scripting', 'advanced-scripting', 'network-admin'] and not (current_user.is_authenticated and current_user.is_premium):
-        flash('This tutorial requires a premium subscription.', 'premium')
-        return redirect(url_for('premium'))
-    
-    # Mock progress tracking for logged-in users
-    if current_user.is_authenticated:
-        # In a real implementation, you would update the user's progress in the database
-        # For example:
-        # progress = TutorialProgress.query.filter_by(
-        #     user_id=current_user.user_id,
-        #     section_slug=section_slug,
-        #     page_slug=page_slug
-        # ).first()
-        # 
-        # if not progress:
-        #     progress = TutorialProgress(
-        #         user_id=current_user.user_id,
-        #         section_slug=section_slug,
-        #         page_slug=page_slug,
-        #         completed_at=datetime.utcnow()
-        #     )
-        #     db.session.add(progress)
-        #     db.session.commit()
-        pass
-    
-    # For demo purposes, we'll just show the intro tutorial content
-    # In a real implementation, you would fetch the specific tutorial content from the database
-    return render_template('tutorial_content.html', 
-                          section_slug=section_slug, 
-                          page_slug=page_slug, 
-                          content_id='intro-to-shell' if section_slug == 'intro-to-shell' else 'generic')
-
 @app.route('/quiz')
 def quiz():
     """Quiz page route"""
