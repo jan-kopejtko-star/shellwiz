@@ -1669,28 +1669,6 @@ footer {
     text-decoration: underline;
 }
 
-/* User menu styling */
-.user-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.user-menu-btn {
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.user-menu-btn:hover {
-    color: #FFD700;
-}
-
 .user-dropdown {
     position: absolute;
     right: 0;
@@ -1727,60 +1705,6 @@ footer {
     background-color: #e9ecef;
     margin: 8px 0;
 }
-
-/* User menu styling */
-.user-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.user-menu-btn {
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 0px 0px;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.user-menu-btn:hover {
-    color: #FFD700;
-}
-
-.user-dropdown {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    background-color: white;
-    min-width: 200px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    border-radius: 4px;
-    padding: 8px 0;
-    z-index: 100;
-    display: none;
-}
-
-.user-menu:hover .user-dropdown {
-    display: block;
-}
-
-.user-dropdown a {
-    color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.user-dropdown a:hover {
-    background-color: #f8f9fa;
-    color: #4a6cf7;
-}
-
 .dropdown-divider {
     height: 1px;
     background-color: #e9ecef;
@@ -1808,12 +1732,10 @@ footer {
     background-color: transparent;
     color: white;
     border: none;
-    padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .user-menu-btn:hover {
