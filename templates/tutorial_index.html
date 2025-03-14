@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorials - ShellWiz</title>
+    <!-- Basic favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    
+    <!-- For Apple devices -->
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    
+    <!-- For Android Chrome -->
+    <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='img/android-chrome-192x192.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}" class="active">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                {% if current_user.is_authenticated %}
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            Hello, {{ current_user.username }} <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a>
+                            {% if current_user.is_premium %}
+                                <a href="{{ url_for('premium_dashboard') }}"><i class="fas fa-crown"></i> Premium Dashboard</a>
+                            {% else %}
+                                <a href="{{ url_for('premium') }}"><i class="fas fa-crown"></i> Upgrade to Premium</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Flash Messages Section -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                        <span class="close-flash">&times;</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Shell Tutorials</h1>
+            <p class="page-subtitle">Learn the command line step by step with our interactive tutorials</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Introduction -->
+        <section class="tutorial-intro">
+            <div class="tutorial-intro-content">
+                <h2>Master the Command Line</h2>
+                <p>Our tutorials are designed to take you from a complete beginner to command line expert. Each tutorial includes interactive examples, step-by-step instructions, and practice exercises to reinforce your learning.</p>
+                <p>Start with our <strong>Beginner's Guide</strong> if you're new to the command line, or jump directly to a specific topic if you're looking to improve particular skills.</p>
+                
+                {% if not current_user.is_authenticated %}
+                <div class="tutorial-cta">
+                    <p><strong>Create a free account</strong> to track your progress across tutorials and save your achievements.</p>
+                    <a href="{{ url_for('register') }}" class="btn">Sign Up Free</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="tutorial-intro-image">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="dot dot-red"></div>
+                            <div class="dot dot-yellow"></div>
+                            <div class="dot dot-green"></div>
+                        </div>
+                        <div class="terminal-title">shellwiz</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> echo "Hello, ShellWiz!"
+Hello, ShellWiz!
+<span class="prompt">user@shellwiz:~$</span> ./start-learning
+Loading interactive shell tutorials...
+Welcome to ShellWiz! Ready to master the command line?
+<span class="prompt">user@shellwiz:~$</span> _
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Continue Learning Section (for logged-in users) -->
+        {% if current_user.is_authenticated and user_progress %}
+            <section class="continue-learning">
+                <h2>Continue Learning</h2>
+                <div class="tutorial-cards">
+                    {% for section_id, progress in user_progress.items() %}
+                        <div class="tutorial-card">
+                            <h3>{{ progress.section.title }}</h3>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: {{ progress.percentage }}%">
+                                    {{ progress.percentage }}%
+                                </div>
+                            </div>
+                            <a href="{{ url_for('tutorial_page', section_slug=progress.section.slug, page_slug=progress.last_page.slug) }}" class="btn btn-primary">Continue</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+        
+        <!-- Featured Tutorials -->
+        <section class="featured-tutorials">
+            <h2>Popular Tutorials</h2>
+            <div class="tutorial-cards">
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <div class="tutorial-card-body">
+                        <h3>Beginner's Guide to the Shell</h3>
+                        <p>Start your command line journey with the basics. Learn navigation, file operations, and essential commands.</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty beginner">Beginner</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 45 min</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-card-footer">
+                        <a href="{{ url_for('tutorial_section', section_slug='beginners-guide') }}" class="btn">Start Learning</a>
+                    </div>
+                </div>
+                
+                <div class="tutorial-card">
+                    <div class="tutorial-card-header">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="tutorial-card-body">
+                        <h3>Text Processing with Grep & Sed</h3>
+                        <p>Master powerful text processing commands to filter, search, and transform text files efficiently.</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty intermediate">Intermediate</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 60 min</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-card-footer">
+                        <a href="{{ url_for('tutorial_section', section_slug='text-processing') }}" class="btn">Start Learning</a>
+                    </div>
+                </div>
+                
+                <div class="tutorial-card premium-card">
+                    <div class="tutorial-card-header">
+                        <i class="fas fa-code"></i>
+                        <span class="premium-badge"><i class="fas fa-crown"></i> Premium</span>
+                    </div>
+                    <div class="tutorial-card-body">
+                        <h3>Shell Scripting Mastery</h3>
+                        <p>Automate complex tasks with shell scripts. Learn variables, conditions, loops, and best practices.</p>
+                        <div class="tutorial-meta">
+                            <span class="difficulty advanced">Advanced</span>
+                            <span class="duration"><i class="fas fa-clock"></i> 120 min</span>
+                        </div>
+                    </div>
+                    <div class="tutorial-card-footer">
+                        {% if current_user.is_authenticated and current_user.is_premium %}
+                            <a href="{{ url_for('tutorial_section', section_slug='shell-scripting') }}" class="btn">Start Learning</a>
+                        {% else %}
+                            <a href="{{ url_for('premium') }}" class="btn btn-premium">Unlock with Premium</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- All Tutorials by Category -->
+        <section class="tutorial-categories">
+            <h2>Browse All Tutorials</h2>
+            
+            <div class="tutorial-filter">
+                <div class="filter-group">
+                    <label for="difficulty-filter">Difficulty:</label>
+                    <select id="difficulty-filter" class="filter-select">
+                        <option value="all">All Levels</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="topic-filter">Topic:</label>
+                    <select id="topic-filter" class="filter-select">
+                        <option value="all">All Topics</option>
+                        <option value="basics">Basics</option>
+                        <option value="files">File Operations</option>
+                        <option value="text">Text Processing</option>
+                        <option value="system">System Administration</option>
+                        <option value="scripting">Scripting</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group search-group">
+                    <input type="text" id="search-filter" placeholder="Search tutorials..." class="search-input">
+                    <button class="search-button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            
+            <!-- Category: Basics -->
+            <div class="tutorial-category">
+                <h3 class="category-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Command Line Basics
+                </h3>
+                <p class="category-description">Start your journey with these fundamental tutorials.</p>
+                
+                <div class="tutorial-list">
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>Introduction to the Shell</h4>
+                            <p>Understand what the command line is and why it's useful for developers.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty beginner">Beginner</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 20 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='intro-to-shell') }}" class="btn">Start</a>
+                    </div>
+                    
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>Navigation & File System</h4>
+                            <p>Learn to navigate directories and understand file system structure.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty beginner">Beginner</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 30 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='navigation') }}" class="btn">Start</a>
+                    </div>
+                    
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>File Operations</h4>
+                            <p>Create, copy, move, and delete files and directories efficiently.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty beginner">Beginner</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 25 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='file-operations') }}" class="btn">Start</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category: Text Processing -->
+            <div class="tutorial-category">
+                <h3 class="category-title">
+                    <i class="fas fa-file-alt"></i>
+                    Text Processing
+                </h3>
+                <p class="category-description">Master tools for manipulating and analyzing text files.</p>
+                
+                <div class="tutorial-list">
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>Viewing File Content</h4>
+                            <p>Learn various ways to view and inspect file contents from the command line.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty beginner">Beginner</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 20 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='viewing-files') }}" class="btn">Start</a>
+                    </div>
+                    
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>Text Editors: Vim & Nano</h4>
+                            <p>Edit files directly from the terminal using popular text editors.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty intermediate">Intermediate</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 45 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='text-editors') }}" class="btn">Start</a>
+                    </div>
+                    
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>Search & Replace with Grep & Sed</h4>
+                            <p>Find patterns in text and perform complex search and replace operations.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty intermediate">Intermediate</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 40 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='grep-sed') }}" class="btn">Start</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category: Scripting (Premium) -->
+            <div class="tutorial-category">
+                <h3 class="category-title">
+                    <i class="fas fa-code"></i>
+                    Shell Scripting
+                    <span class="premium-category-badge"><i class="fas fa-crown"></i> Premium</span>
+                </h3>
+                <p class="category-description">Automate tasks and build powerful shell scripts.</p>
+                
+                <div class="tutorial-list">
+                    <div class="tutorial-item premium-item">
+                        <div class="tutorial-info">
+                            <h4>Scripting Fundamentals</h4>
+                            <p>Learn the basics of shell scripting, variables, and simple commands.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty intermediate">Intermediate</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 35 min</span>
+                                <span class="premium-badge"><i class="fas fa-crown"></i> Premium</span>
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated and current_user.is_premium %}
+                            <a href="{{ url_for('tutorial_section', section_slug='scripting-fundamentals') }}" class="btn">Start</a>
+                        {% else %}
+                            <a href="{{ url_for('premium') }}" class="btn btn-premium">Unlock</a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="tutorial-item premium-item">
+                        <div class="tutorial-info">
+                            <h4>Control Flow & Logic</h4>
+                            <p>Master conditionals, loops, and logical operations in shell scripts.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty advanced">Advanced</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 50 min</span>
+                                <span class="premium-badge"><i class="fas fa-crown"></i> Premium</span>
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated and current_user.is_premium %}
+                            <a href="{{ url_for('tutorial_section', section_slug='control-flow') }}" class="btn">Start</a>
+                        {% else %}
+                            <a href="{{ url_for('premium') }}" class="btn btn-premium">Unlock</a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="tutorial-item premium-item">
+                        <div class="tutorial-info">
+                            <h4>Advanced Scripting Techniques</h4>
+                            <p>Learn functions, error handling, and best practices for shell scripts.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty advanced">Advanced</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 60 min</span>
+                                <span class="premium-badge"><i class="fas fa-crown"></i> Premium</span>
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated and current_user.is_premium %}
+                            <a href="{{ url_for('tutorial_section', section_slug='advanced-scripting') }}" class="btn">Start</a>
+                        {% else %}
+                            <a href="{{ url_for('premium') }}" class="btn btn-premium">Unlock</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category: System Administration -->
+            <div class="tutorial-category">
+                <h3 class="category-title">
+                    <i class="fas fa-server"></i>
+                    System Administration
+                </h3>
+                <p class="category-description">Manage systems and servers using command line tools.</p>
+                
+                <div class="tutorial-list">
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>Process Management</h4>
+                            <p>Learn to monitor, control, and manage running processes.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty intermediate">Intermediate</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 30 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='process-management') }}" class="btn">Start</a>
+                    </div>
+                    
+                    <div class="tutorial-item">
+                        <div class="tutorial-info">
+                            <h4>User Management</h4>
+                            <p>Create and manage users, groups, and permissions.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty intermediate">Intermediate</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 35 min</span>
+                            </div>
+                        </div>
+                        <a href="{{ url_for('tutorial_section', section_slug='user-management') }}" class="btn">Start</a>
+                    </div>
+                    
+                    <div class="tutorial-item premium-item">
+                        <div class="tutorial-info">
+                            <h4>Network Administration</h4>
+                            <p>Master network tools, diagnostics, and configuration via command line.</p>
+                            <div class="tutorial-meta">
+                                <span class="difficulty advanced">Advanced</span>
+                                <span class="duration"><i class="fas fa-clock"></i> 55 min</span>
+                                <span class="premium-badge"><i class="fas fa-crown"></i> Premium</span>
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated and current_user.is_premium %}
+                            <a href="{{ url_for('tutorial_section', section_slug='network-admin') }}" class="btn">Start</a>
+                        {% else %}
+                            <a href="{{ url_for('premium') }}" class="btn btn-premium">Unlock</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="premium-banner">
+            <h2>Unlock All Premium Tutorials</h2>
+            <p>Get access to advanced shell scripting, system administration, and expert-level tutorials with a Premium subscription.</p>
+            <ul class="premium-features">
+                <li><i class="fas fa-check-circle"></i> Access all 50+ premium tutorials</li>
+                <li><i class="fas fa-check-circle"></i> Advanced interactive exercises</li>
+                <li><i class="fas fa-check-circle"></i> Downloadable cheat sheets</li>
+                <li><i class="fas fa-check-circle"></i> Progress tracking across all tutorials</li>
+            </ul>
+            <a href="{{ url_for('premium') }}" class="btn btn-premium btn-large">Upgrade to Premium</a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/user-menu.js') }}"></script>
+    <script>
+        // Flash messages handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-flash');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+
+            // Auto-remove flash messages after 5 seconds
+            setTimeout(() => {
+                const flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(message => {
+                    message.remove();
+                });
+            }, 5000);
+            
+            // Tutorial filtering logic
+            const difficultyFilter = document.getElementById('difficulty-filter');
+            const topicFilter = document.getElementById('topic-filter');
+            const searchInput = document.getElementById('search-filter');
+            const searchButton = document.querySelector('.search-button');
+            
+            function filterTutorials() {
+                const difficulty = difficultyFilter.value;
+                const topic = topicFilter.value;
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                // Demo logic - in a real implementation, you would filter the tutorials
+                console.log(`Filtering tutorials: Difficulty=${difficulty}, Topic=${topic}, Search="${searchTerm}"`);
+                
+                // Sample filter logic (would be more robust in actual implementation)
+                document.querySelectorAll('.tutorial-item').forEach(item => {
+                    const itemDifficulty = item.querySelector('.difficulty').classList[1];
+                    const itemTopic = item.closest('.tutorial-category').getAttribute('data-topic') || '';
+                    const itemTitle = item.querySelector('h4').textContent.toLowerCase();
+                    const itemDesc = item.querySelector('p').textContent.toLowerCase();
+                    
+                    let showItem = true;
+                    
+                    // Apply difficulty filter
+                    if (difficulty !== 'all' && !itemDifficulty.includes(difficulty)) {
+                        showItem = false;
+                    }
+                    
+                    // Apply topic filter
+                    if (topic !== 'all' && !itemTopic.includes(topic)) {
+                        showItem = false;
+                    }
+                    
+                    // Apply search filter
+                    if (searchTerm && !itemTitle.includes(searchTerm) && !itemDesc.includes(searchTerm)) {
+                        showItem = false;
+                    }
+                    
+                    // Show/hide item
+                    item.style.display = showItem ? 'flex' : 'none';
+                });
+            }
+            
+            // Add event listeners
+            difficultyFilter.addEventListener('change', filterTutorials);
+            topicFilter.addEventListener('change', filterTutorials);
+            searchButton.addEventListener('click', filterTutorials);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    filterTutorials();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -48,10 +48,244 @@ def premium():
     """Premium page route"""
     return render_template('premium.html')
 
+# Add these route handlers to your app.py file
+
 @app.route('/tutorial')
-def tutorial():
-    """Tutorial page route"""
-    return render_template('tutorial.html')
+def tutorial_index():
+    """Tutorial landing page showing all available tutorials"""
+    # In a real implementation, you would fetch the tutorial sections from the database
+    # For now, we'll use dummy data
+    
+    # Mock data for tutorial categories
+    categories = [
+        {
+            'slug': 'basics',
+            'title': 'Command Line Basics',
+            'description': 'Start your journey with these fundamental tutorials.',
+            'icon': 'fas fa-graduation-cap',
+            'tutorials': [
+                {
+                    'slug': 'intro-to-shell',
+                    'title': 'Introduction to the Shell',
+                    'description': 'Understand what the command line is and why it\'s useful for developers.',
+                    'difficulty': 'beginner',
+                    'duration': 20
+                },
+                {
+                    'slug': 'navigation',
+                    'title': 'Navigation & File System',
+                    'description': 'Learn to navigate directories and understand file system structure.',
+                    'difficulty': 'beginner',
+                    'duration': 30
+                },
+                {
+                    'slug': 'file-operations',
+                    'title': 'File Operations',
+                    'description': 'Create, copy, move, and delete files and directories efficiently.',
+                    'difficulty': 'beginner',
+                    'duration': 25
+                }
+            ]
+        },
+        {
+            'slug': 'text-processing',
+            'title': 'Text Processing',
+            'description': 'Master tools for manipulating and analyzing text files.',
+            'icon': 'fas fa-file-alt',
+            'tutorials': [
+                {
+                    'slug': 'viewing-files',
+                    'title': 'Viewing File Content',
+                    'description': 'Learn various ways to view and inspect file contents from the command line.',
+                    'difficulty': 'beginner',
+                    'duration': 20
+                },
+                {
+                    'slug': 'text-editors',
+                    'title': 'Text Editors: Vim & Nano',
+                    'description': 'Edit files directly from the terminal using popular text editors.',
+                    'difficulty': 'intermediate',
+                    'duration': 45
+                },
+                {
+                    'slug': 'grep-sed',
+                    'title': 'Search & Replace with Grep & Sed',
+                    'description': 'Find patterns in text and perform complex search and replace operations.',
+                    'difficulty': 'intermediate',
+                    'duration': 40
+                }
+            ]
+        },
+        {
+            'slug': 'scripting',
+            'title': 'Shell Scripting',
+            'description': 'Automate tasks and build powerful shell scripts.',
+            'icon': 'fas fa-code',
+            'is_premium': True,
+            'tutorials': [
+                {
+                    'slug': 'scripting-fundamentals',
+                    'title': 'Scripting Fundamentals',
+                    'description': 'Learn the basics of shell scripting, variables, and simple commands.',
+                    'difficulty': 'intermediate',
+                    'duration': 35,
+                    'is_premium': True
+                },
+                {
+                    'slug': 'control-flow',
+                    'title': 'Control Flow & Logic',
+                    'description': 'Master conditionals, loops, and logical operations in shell scripts.',
+                    'difficulty': 'advanced',
+                    'duration': 50,
+                    'is_premium': True
+                },
+                {
+                    'slug': 'advanced-scripting',
+                    'title': 'Advanced Scripting Techniques',
+                    'description': 'Learn functions, error handling, and best practices for shell scripts.',
+                    'difficulty': 'advanced',
+                    'duration': 60,
+                    'is_premium': True
+                }
+            ]
+        },
+        {
+            'slug': 'system-administration',
+            'title': 'System Administration',
+            'description': 'Manage systems and servers using command line tools.',
+            'icon': 'fas fa-server',
+            'tutorials': [
+                {
+                    'slug': 'process-management',
+                    'title': 'Process Management',
+                    'description': 'Learn to monitor, control, and manage running processes.',
+                    'difficulty': 'intermediate',
+                    'duration': 30
+                },
+                {
+                    'slug': 'user-management',
+                    'title': 'User Management',
+                    'description': 'Create and manage users, groups, and permissions.',
+                    'difficulty': 'intermediate',
+                    'duration': 35
+                },
+                {
+                    'slug': 'network-admin',
+                    'title': 'Network Administration',
+                    'description': 'Master network tools, diagnostics, and configuration via command line.',
+                    'difficulty': 'advanced',
+                    'duration': 55,
+                    'is_premium': True
+                }
+            ]
+        }
+    ]
+    
+    # Featured tutorials
+    featured_tutorials = [
+        {
+            'slug': 'beginners-guide',
+            'title': 'Beginner\'s Guide to the Shell',
+            'description': 'Start your command line journey with the basics. Learn navigation, file operations, and essential commands.',
+            'difficulty': 'beginner',
+            'duration': 45,
+            'icon': 'fas fa-terminal'
+        },
+        {
+            'slug': 'text-processing',
+            'title': 'Text Processing with Grep & Sed',
+            'description': 'Master powerful text processing commands to filter, search, and transform text files efficiently.',
+            'difficulty': 'intermediate',
+            'duration': 60,
+            'icon': 'fas fa-file-alt'
+        },
+        {
+            'slug': 'shell-scripting',
+            'title': 'Shell Scripting Mastery',
+            'description': 'Automate complex tasks with shell scripts. Learn variables, conditions, loops, and best practices.',
+            'difficulty': 'advanced',
+            'duration': 120,
+            'icon': 'fas fa-code',
+            'is_premium': True
+        }
+    ]
+    
+    # In a real implementation, this would be actual user progress data from the database
+    user_progress = {}
+    if current_user.is_authenticated:
+        # Just mocking some progress for demo purposes
+        user_progress = {
+            'basics': {
+                'section': {'slug': 'basics', 'title': 'Command Line Basics'},
+                'last_page': {'slug': 'navigation', 'title': 'Navigation & File System'},
+                'percentage': 65
+            }
+        }
+    
+    return render_template(
+        'tutorial_index.html',
+        categories=categories,
+        featured_tutorials=featured_tutorials,
+        user_progress=user_progress
+    )
+
+@app.route('/tutorial/<section_slug>')
+def tutorial_section(section_slug):
+    """Display a specific tutorial section"""
+    # In a real implementation, you would look up the section in the database
+    # For now, we'll just redirect to a specific tutorial page
+    
+    # Mock handling for different sections
+    if section_slug == 'intro-to-shell':
+        return render_template('tutorial_content.html', content_id='intro-to-shell')
+    elif section_slug == 'beginners-guide':
+        return render_template('tutorial_content.html', content_id='beginners-guide')
+    elif section_slug.startswith('script') and not (current_user.is_authenticated and current_user.is_premium):
+        flash('This tutorial requires a premium subscription.', 'premium')
+        return redirect(url_for('premium'))
+    else:
+        # Default content page or 404
+        flash('This tutorial is coming soon. Check back later!', 'info')
+        return redirect(url_for('tutorial_index'))
+
+@app.route('/tutorial/<section_slug>/<page_slug>')
+def tutorial_page(section_slug, page_slug):
+    """Display a specific tutorial page"""
+    # In a real implementation, you would look up both the section and page in the database
+    # For now, we'll use a simplified approach
+    
+    # Mock check for premium content
+    if section_slug in ['scripting', 'advanced-scripting', 'network-admin'] and not (current_user.is_authenticated and current_user.is_premium):
+        flash('This tutorial requires a premium subscription.', 'premium')
+        return redirect(url_for('premium'))
+    
+    # Mock progress tracking for logged-in users
+    if current_user.is_authenticated:
+        # In a real implementation, you would update the user's progress in the database
+        # For example:
+        # progress = TutorialProgress.query.filter_by(
+        #     user_id=current_user.user_id,
+        #     section_slug=section_slug,
+        #     page_slug=page_slug
+        # ).first()
+        # 
+        # if not progress:
+        #     progress = TutorialProgress(
+        #         user_id=current_user.user_id,
+        #         section_slug=section_slug,
+        #         page_slug=page_slug,
+        #         completed_at=datetime.utcnow()
+        #     )
+        #     db.session.add(progress)
+        #     db.session.commit()
+        pass
+    
+    # For demo purposes, we'll just show the intro tutorial content
+    # In a real implementation, you would fetch the specific tutorial content from the database
+    return render_template('tutorial_content.html', 
+                          section_slug=section_slug, 
+                          page_slug=page_slug, 
+                          content_id='intro-to-shell' if section_slug == 'intro-to-shell' else 'generic')
 
 @app.route('/quiz')
 def quiz():
@@ -268,6 +502,91 @@ def settings_delete_account():
     logout_user()
     flash('Your account has been deleted.', 'info')
     return redirect(url_for('index'))
+
+# Add or modify this route in your app.py file
+
+@app.route('/tutorial/basics/intro-to-shell')
+def tutorial_intro_to_shell():
+    """Specific route for the Introduction to Shell tutorial"""
+    # Check if user is logged in to track progress
+    if current_user.is_authenticated:
+        # In a real implementation, you would update the user's progress
+        # For example:
+        # progress = TutorialProgress.query.filter_by(
+        #     user_id=current_user.user_id,
+        #     page_id=1  # Assuming this is the ID for the intro tutorial
+        # ).first()
+        # 
+        # if not progress:
+        #     progress = TutorialProgress(
+        #         user_id=current_user.user_id,
+        #         page_id=1,
+        #         completed_at=datetime.utcnow()
+        #     )
+        #     db.session.add(progress)
+        #     db.session.commit()
+        pass
+    
+    # Render the tutorial template
+    return render_template('tutorial_content.html', 
+                          section_slug='basics',
+                          page_slug='intro-to-shell',
+                          title='Introduction to the Shell',
+                          difficulty='beginner',
+                          duration=20,
+                          category='Command Line Basics')
+
+# Alternative approach using the generic handler
+@app.route('/tutorial/<section_slug>/<page_slug>')
+def tutorial_page(section_slug, page_slug):
+    """Generic handler for tutorial pages"""
+    # Default values
+    title = 'Tutorial'
+    difficulty = 'beginner'
+    duration = 20
+    category = 'Command Line Basics'
+    
+    # Determine which tutorial to show based on the slugs
+    if section_slug == 'basics' and page_slug == 'intro-to-shell':
+        title = 'Introduction to the Shell'
+        template_file = 'intro_to_shell.html'
+    elif section_slug == 'basics' and page_slug == 'navigation':
+        title = 'Navigation & File System'
+        difficulty = 'beginner'
+        duration = 30
+        template_file = 'navigation.html'
+    elif section_slug == 'text-processing' and page_slug == 'grep-sed':
+        title = 'Search & Replace with Grep & Sed'
+        difficulty = 'intermediate'
+        duration = 40
+        category = 'Text Processing'
+        template_file = 'grep_sed.html'
+    # Add other tutorials here
+    else:
+        # For tutorials that don't have dedicated templates yet
+        flash('This tutorial is coming soon. Check back later!', 'info')
+        return redirect(url_for('tutorial_index'))
+    
+    # Mock check for premium content
+    if section_slug in ['scripting'] and not (current_user.is_authenticated and current_user.is_premium):
+        flash('This tutorial requires a premium subscription.', 'premium')
+        return redirect(url_for('premium'))
+    
+    # Track progress for logged-in users
+    if current_user.is_authenticated:
+        # In a real implementation, you would update the user's progress
+        pass
+    
+    # For the proof of concept, always return the intro tutorial template
+    # In a real implementation, you would use different templates or dynamic content
+    return render_template('tutorial_content.html',
+                          section_slug=section_slug,
+                          page_slug=page_slug,
+                          title=title,
+                          difficulty=difficulty,
+                          duration=duration,
+                          category=category)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

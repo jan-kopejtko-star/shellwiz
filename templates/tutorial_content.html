@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to the Shell - ShellWiz</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="icon" sizes="192x192" href="{{ url_for('static', filename='img/android-chrome-192x192.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}" class="logo-link">
+            <div class="logo">Shell<span>Wiz</span></div>
+        </a>
+        <nav>
+            <ul class="main-nav">
+                <li><a href="{{ url_for('premium') }}" class="premium-btn">Premium ✨</a></li>
+                <li><a href="{{ url_for('tutorial') }}" class="active">Tutorial</a></li>
+                <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                <li><a href="{{ url_for('leaderboard') }}">Leaderboard</a></li>
+                <li><a href="{{ url_for('commands') }}">Commands</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+            <ul class="auth-nav">
+                {% if current_user.is_authenticated %}
+                    <div class="user-menu">
+                        <button class="user-menu-btn">
+                            Hello, {{ current_user.username }} <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="{{ url_for('profile') }}"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a>
+                            {% if current_user.is_premium %}
+                                <a href="{{ url_for('premium_dashboard') }}"><i class="fas fa-crown"></i> Premium Dashboard</a>
+                            {% else %}
+                                <a href="{{ url_for('premium') }}"><i class="fas fa-crown"></i> Upgrade to Premium</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="login-btn">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="register-btn">Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Flash Messages Section -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                        <span class="close-flash">&times;</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">Introduction to the Shell</h1>
+            <div class="tutorial-meta-header">
+                <span class="difficulty beginner">Beginner</span>
+                <span class="duration"><i class="fas fa-clock"></i> 20 min</span>
+                <span class="category"><i class="fas fa-graduation-cap"></i> Command Line Basics</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="tutorial-layout">
+            <div class="tutorial-sidebar">
+                <button class="tutorial-nav-toggle">Tutorial Navigation</button>
+                <ul class="tutorial-nav">
+                    <li class="tutorial-nav-item">
+                        <a href="{{ url_for('tutorial_section', section_slug='basics') }}" class="tutorial-nav-link">Command Line Basics</a>
+                        <ul class="tutorial-subnav">
+                            <li><a href="{{ url_for('tutorial_page', section_slug='basics', page_slug='intro-to-shell') }}" class="tutorial-subnav-link active">Introduction to the Shell</a></li>
+                            <li><a href="{{ url_for('tutorial_page', section_slug='basics', page_slug='navigation') }}" class="tutorial-subnav-link">Navigation & File System</a></li>
+                            <li><a href="{{ url_for('tutorial_page', section_slug='basics', page_slug='file-operations') }}" class="tutorial-subnav-link">File Operations</a></li>
+                        </ul>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="{{ url_for('tutorial_section', section_slug='text-processing') }}" class="tutorial-nav-link">Text Processing</a>
+                        <ul class="tutorial-subnav">
+                            <li><a href="{{ url_for('tutorial_page', section_slug='text-processing', page_slug='viewing-files') }}" class="tutorial-subnav-link">Viewing File Content</a></li>
+                            <li><a href="{{ url_for('tutorial_page', section_slug='text-processing', page_slug='text-editors') }}" class="tutorial-subnav-link">Text Editors: Vim & Nano</a></li>
+                            <li><a href="{{ url_for('tutorial_page', section_slug='text-processing', page_slug='grep-sed') }}" class="tutorial-subnav-link">Search & Replace with Grep & Sed</a></li>
+                        </ul>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="{{ url_for('tutorial_section', section_slug='scripting') }}" class="tutorial-nav-link">Shell Scripting</a>
+                        <span class="premium-badge" style="font-size: 0.8rem; padding: 0.1rem 0.4rem; margin-left: 0.5rem;">Premium</span>
+                    </li>
+                    <li class="tutorial-nav-item">
+                        <a href="{{ url_for('tutorial_section', section_slug='system-administration') }}" class="tutorial-nav-link">System Administration</a>
+                    </li>
+                </ul>
+                
+                {% if current_user.is_authenticated %}
+                <div class="tutorial-progress">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 15%;">15%</div>
+                    </div>
+                    <p>3 of 20 tutorials completed</p>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="tutorial-content">
+                <section id="intro">
+                    <h2>Introduction to the Shell</h2>
+                    
+                    <p>Welcome to the Shell! The command line interface (CLI) is a powerful tool that allows you to interact with your computer by typing commands. While graphical user interfaces (GUIs) are user-friendly, the command line offers greater power, flexibility, and automation capabilities.</p>
+                    
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="terminal-title">bash</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> echo "Hello, Shell World!"
+Hello, Shell World!
+<span class="prompt">user@shellwiz:~$</span> _
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>What is a Shell?</h3>
+                    
+                    <p>A shell is a program that provides an interface for users to interact with the operating system. It interprets commands that you type and passes them to the operating system to execute.</p>
+                    
+                    <p>There are various types of shells available, including:</p>
+                    
+                    <ul>
+                        <li><strong>Bash (Bourne Again Shell)</strong> - The most common shell on Linux and macOS</li>
+                        <li><strong>Zsh (Z Shell)</strong> - An extended version of Bash with additional features</li>
+                        <li><strong>Fish</strong> - A user-friendly shell with advanced features</li>
+                        <li><strong>PowerShell</strong> - Microsoft's task automation and configuration management framework</li>
+                        <li><strong>Command Prompt</strong> - The traditional Windows command interpreter</li>
+                    </ul>
+                    
+                    <p>In this tutorial series, we'll primarily focus on Bash, as it's the most widely used shell and the default on most Linux distributions.</p>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Shell vs Terminal</h4>
+                        <p>People often use the terms "shell" and "terminal" interchangeably, but they're actually different:</p>
+                        <ul>
+                            <li><strong>Terminal</strong>: The application window that displays text and allows you to type commands.</li>
+                            <li><strong>Shell</strong>: The actual program that interprets and executes the commands you type.</li>
+                        </ul>
+                        <p>Think of the terminal as the container, and the shell as the program running inside it.</p>
+                    </div>
+                    
+                    <h3>Why Learn the Command Line?</h3>
+                    
+                    <p>Learning the command line offers several advantages:</p>
+                    
+                    <ul>
+                        <li><strong>Efficiency</strong> - Many tasks can be performed more quickly via the command line</li>
+                        <li><strong>Automation</strong> - You can script repetitive tasks to save time</li>
+                        <li><strong>Remote Access</strong> - Manage servers and remote systems without a GUI</li>
+                        <li><strong>System Administration</strong> - Many admin tasks require command line knowledge</li>
+                        <li><strong>Development</strong> - Essential for programming and software development</li>
+                    </ul>
+                    
+                    <h3>Your First Commands</h3>
+                    
+                    <p>Let's start with a few basic commands to get familiar with the shell. Try typing these in the interactive terminal below:</p>
+                    
+                    <div class="interactive-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="terminal-title">Interactive Shell</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-output" id="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> _
+                            </div>
+                        </div>
+                        <div class="terminal-input">
+                            <span class="terminal-prompt">user@shellwiz:~$</span>
+                            <input type="text" class="terminal-command-input" id="terminal-command-input" autocomplete="off" spellcheck="false">
+                        </div>
+                        <div class="command-hint">Try: echo "Hello, World!"</div>
+                    </div>
+                    
+                    <p>Here are some basic commands to try:</p>
+                    
+                    <table class="command-table">
+                        <thead>
+                            <tr>
+                                <th>Command</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>echo</code></td>
+                                <td>Display text on the screen</td>
+                                <td><code>echo "Hello, World!"</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>date</code></td>
+                                <td>Display the current date and time</td>
+                                <td><code>date</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>whoami</code></td>
+                                <td>Display your username</td>
+                                <td><code>whoami</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>pwd</code></td>
+                                <td>Print Working Directory (show current location)</td>
+                                <td><code>pwd</code></td>
+                            </tr>
+                            <tr>
+                                <td><code>ls</code></td>
+                                <td>List files and directories</td>
+                                <td><code>ls</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="note">
+                        <strong>Pro Tip:</strong> In the shell, commands are case-sensitive. Make sure to type them exactly as shown.
+                    </div>
+                    
+                    <h3>Command Structure</h3>
+                    
+                    <p>Most shell commands follow a similar structure:</p>
+                    
+                    <pre><code>command [options] [arguments]</code></pre>
+                    
+                    <ul>
+                        <li><strong>Command</strong> - The name of the program to run</li>
+                        <li><strong>Options</strong> - Modify how the command behaves (usually prefixed with - or --)</li>
+                        <li><strong>Arguments</strong> - The data the command operates on</li>
+                    </ul>
+                    
+                    <p>For example:</p>
+                    
+                    <pre><code>ls -l /home</code></pre>
+                    
+                    <p>In this command:</p>
+                    <ul>
+                        <li><code>ls</code> is the command</li>
+                        <li><code>-l</code> is an option that displays results in a detailed list format</li>
+                        <li><code>/home</code> is the argument specifying which directory to list</li>
+                    </ul>
+                    
+                    <div class="challenge-box">
+                        <h4><i class="fas fa-tasks"></i> Quick Challenge</h4>
+                        <p>Try using the <code>ls</code> command with the <code>-l</code> option to see more details about files. What additional information does this show you?</p>
+                        <div class="challenge-answer" style="display: none;">
+                            <p>The <code>ls -l</code> command shows:</p>
+                            <ul>
+                                <li>File permissions</li>
+                                <li>Number of links</li>
+                                <li>Owner</li>
+                                <li>Group</li>
+                                <li>File size</li>
+                                <li>Last modified date</li>
+                                <li>Filename</li>
+                            </ul>
+                        </div>
+                        <button class="btn-small toggle-answer">Show Answer</button>
+                    </div>
+                    
+                    <h3>Getting Help</h3>
+                    
+                    <p>When you're not sure how to use a command, you can get help in several ways:</p>
+                    
+                    <ul>
+                        <li><code>man command</code> - Display the manual page for a command</li>
+                        <li><code>command --help</code> - Display brief help information</li>
+                        <li><code>help command</code> - Display help for shell built-in commands</li>
+                    </ul>
+                    
+                    <p>For example, to learn more about the <code>ls</code> command, you can type <code>man ls</code> or <code>ls --help</code>.</p>
+                    
+                    <h3>Summary</h3>
+                    
+                    <p>In this tutorial, you've learned:</p>
+                    
+                    <ul>
+                        <li>What a shell is and why it's useful</li>
+                        <li>Different types of shells available</li>
+                        <li>Basic command structure (command, options, arguments)</li>
+                        <li>Your first shell commands</li>
+                        <li>How to get help when you need it</li>
+                    </ul>
+                    
+                    <p>In the next tutorial, we'll dive deeper into navigating the file system and working with files and directories.</p>
+                    
+                    <div class="tutorial-navigation">
+                        <a href="{{ url_for('tutorial_index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Tutorials</a>
+                        <a href="{{ url_for('tutorial_page', section_slug='basics', page_slug='navigation') }}" class="btn">Next: Navigation & File System <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    {% if not current_user.is_authenticated %}
+                    <div class="tutorial-cta">
+                        <h3>Track Your Progress</h3>
+                        <p>Create a free account to track your progress, save your favorite commands, and unlock achievements as you learn.</p>
+                        <div class="cta-buttons">
+                            <a href="{{ url_for('register') }}" class="btn">Create Free Account</a>
+                            <a href="{{ url_for('login') }}" class="btn btn-outline">Login</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">Shell<span>Wiz</span></div>
+                <p class="footer-desc">Master the command line with interactive tutorials, quizzes, and challenges. The fun way to become a shell wizard!</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Learn</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('tutorial') }}">Tutorials</a></li>
+                    <li><a href="{{ url_for('quiz') }}">Quiz Game</a></li>
+                    <li><a href="{{ url_for('challenges') }}">Challenges</a></li>
+                    <li><a href="{{ url_for('commands') }}">Command Reference</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 ShellWiz. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/user-menu.js') }}"></script>
+    <script>
+        // Flash messages handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-flash');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.remove();
+                });
+            });
+
+            // Auto-remove flash messages after 5 seconds
+            setTimeout(() => {
+                const flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(message => {
+                    message.remove();
+                });
+            }, 5000);
+            
+            // Interactive terminal functionality
+            const terminalOutput = document.getElementById('terminal-output');
+            const commandInput = document.getElementById('terminal-command-input');
+            
+            commandInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const command = this.value.trim();
+                    if (!command) return;
+                    
+                    // Display the command
+                    terminalOutput.innerHTML += command + '\n';
+                    
+                    // Process the command (simplified for demo)
+                    let output = '';
+                    if (command === 'echo "Hello, World!"' || command.startsWith('echo ')) {
+                        output = command.substring(5).replace(/"/g, '');
+                    } else if (command === 'date') {
+                        output = new Date().toString();
+                    } else if (command === 'whoami') {
+                        output = 'student';
+                    } else if (command === 'pwd') {
+                        output = '/home/student';
+                    } else if (command === 'ls') {
+                        output = 'Documents  Downloads  Pictures  Music  Videos';
+                    } else if (command === 'ls -l') {
+                        output = 'drwxr-xr-x 2 student student 4096 Mar 14 10:00 Documents\n';
+                        output += 'drwxr-xr-x 2 student student 4096 Mar 14 10:00 Downloads\n';
+                        output += 'drwxr-xr-x 2 student student 4096 Mar 14 10:00 Pictures\n';
+                        output += 'drwxr-xr-x 2 student student 4096 Mar 14 10:00 Music\n';
+                        output += 'drwxr-xr-x 2 student student 4096 Mar 14 10:00 Videos';
+                    } else if (command === 'help') {
+                        output = 'Available commands: echo, date, whoami, pwd, ls, help, clear';
+                    } else if (command === 'clear') {
+                        terminalOutput.innerHTML = '<span class="prompt">user@shellwiz:~$</span> ';
+                        this.value = '';
+                        return;
+                    } else {
+                        output = `Command not found: ${command}. Type 'help' to see available commands.`;
+                    }
+                    
+                    // Display the output
+                    terminalOutput.innerHTML += output + '\n<span class="prompt">user@shellwiz:~$</span> ';
+                    
+                    // Clear the input
+                    this.value = '';
+                    
+                    // Scroll to bottom
+                    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                }
+            });
+            
+            // Challenge answer toggle
+            const toggleButtons = document.querySelectorAll('.toggle-answer');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const answer = this.previousElementSibling;
+                    if (answer.style.display === 'none' || !answer.style.display) {
+                        answer.style.display = 'block';
+                        this.textContent = 'Hide Answer';
+                    } else {
+                        answer.style.display = 'none';
+                        this.textContent = 'Show Answer';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
