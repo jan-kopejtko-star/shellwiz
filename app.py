@@ -29,7 +29,7 @@ login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
 # Import models after initializing db
-from models import User, UserPreference
+from models import User, UserPreference, Command, CommandExample, CommandOption
 
 @login_manager.user_loader
 def load_user(user_id):
