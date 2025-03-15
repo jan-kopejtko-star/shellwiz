@@ -98,6 +98,12 @@ class CommandExample(db.Model):
     command_id = db.Column(db.Integer, db.ForeignKey('commands.command_id', ondelete='CASCADE'))
     example = db.Column(db.Text, nullable=False)
     explanation = db.Column(db.Text, nullable=False)
+    
+    # New fields
+    title = db.Column(db.String(255), nullable=True)
+    command = db.Column(db.Text, nullable=True)
+    output = db.Column(db.Text, nullable=True)
+    setup_command = db.Column(db.Text, nullable=True)
 
 class CommandOption(db.Model):
     __tablename__ = 'command_options'
