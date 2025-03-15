@@ -63,11 +63,12 @@
         
         <h2 class="section-title">File Operations</h2>
         <div class="command-grid">
-            <div class="command-card">
-                <h3 class="command-name">ls</h3>
-                <p class="command-desc">List directory contents</p>
-                <pre class="command-example">ls -la</pre>
-            </div>
+<!-- In the commands.html file, update the command cards -->
+<div class="command-card">
+    <h3 class="command-name"><a href="{{ url_for('command_detail', command_name='ls') }}">ls</a></h3>
+    <p class="command-desc">List directory contents</p>
+    <pre class="command-example">ls -la</pre>
+</div>
             
             <div class="command-card">
                 <h3 class="command-name">cp</h3>
