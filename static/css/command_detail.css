@@ -81,3 +81,35 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* In command_detail.css */
+.terminal-content {
+    padding: 15px;
+    background-color: #282c34;
+    color: #f8f8f2;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.5;
+}
+
+.terminal-output {
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.prompt {
+    color: #f1fa8c;
+    margin-right: 8px;
+    font-weight: normal;
+}
+
+.command-output {
+    color: #f8f8f2;
+    display: block;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.terminal-command {
+    color: #50fa7b;
+    font-weight: bold;
+}

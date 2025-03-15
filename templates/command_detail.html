@@ -110,21 +110,42 @@
                     
                     <div class="example-command">
                         <h4>Command:</h4>
-                        <div class="terminal">
-                            <div class="terminal-header">
-                                <div class="terminal-dots">
-                                    <div class="dot dot-red"></div>
-                                    <div class="dot dot-yellow"></div>
-                                    <div class="dot dot-green"></div>
-                                </div>
-                                <div class="terminal-title">bash</div>
-                            </div>
-                            <div class="terminal-content">
-                                <div class="terminal-output">
-                                    <span class="prompt">user@shellwiz:~$</span> <strong>{{ example.command }}</strong>
-                                </div>
-                            </div>
-                        </div>
+<!-- For the setup command -->
+<div class="terminal">
+    <div class="terminal-header">
+        <div class="terminal-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+        </div>
+        <div class="terminal-title">bash</div>
+    </div>
+    <div class="terminal-content">
+        <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> <span class="terminal-command">{{ example.setup_command }}</span>
+</div>
+    </div>
+</div>
+
+<!-- For the main command with output -->
+<div class="terminal">
+    <div class="terminal-header">
+        <div class="terminal-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+        </div>
+        <div class="terminal-title">bash</div>
+    </div>
+    <div class="terminal-content">
+        <div class="terminal-output">
+<span class="prompt">user@shellwiz:~$</span> <span class="terminal-command">{{ example.command }}</span>
+{% if example.output %}
+<span class="command-output">{{ example.output }}</span>
+{% endif %}
+</div>
+    </div>
+</div>
                     </div>
                     
                     <div class="example-explanation">
