@@ -99,6 +99,13 @@ class CommandExample(db.Model):
     example = db.Column(db.Text, nullable=False)
     explanation = db.Column(db.Text, nullable=False)
 
+class CommandOption(db.Model):
+    __tablename__ = 'command_options'
+    option_id = db.Column(db.Integer, primary_key=True)
+    command_id = db.Column(db.Integer, db.ForeignKey('commands.command_id', ondelete='CASCADE'))
+    flag = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+
 class Challenge(db.Model):
     __tablename__ = 'challenges'
     challenge_id = db.Column(db.Integer, primary_key=True)
