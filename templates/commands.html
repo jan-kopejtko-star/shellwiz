@@ -60,6 +60,22 @@
                 </div>
             </div>
         </div>
+
+        <!-- Inside commands.html -->
+{% for category in categories %}
+<h2 class="section-title">{{ category }}</h2>
+<div class="command-grid">
+    {% for command in commands_by_category[category] %}
+    <div class="command-card">
+        <h3 class="command-name">
+            <a href="{{ url_for('command_detail', command_name=command.name) }}">{{ command.name }}</a>
+        </h3>
+        <p class="command-desc">{{ command.description }}</p>
+        <pre class="command-example">{{ command.examples[0].command if command.examples }}</pre>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
         
         <h2 class="section-title">File Operations</h2>
         <div class="command-grid">

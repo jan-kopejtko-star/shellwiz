@@ -146,6 +146,11 @@
                     <a href="{{ url_for('command_detail', command_name='cd') }}" class="related-command">cd</a>
                     <a href="{{ url_for('command_detail', command_name='dir') }}" class="related-command">dir</a>
                 </div>
+                <div class="related-commands">
+                    {% for related in related_commands %}
+                    <a href="{{ url_for('command_detail', command_name=related.name) }}" class="related-command">{{ related.name }}</a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         

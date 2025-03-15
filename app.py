@@ -263,70 +263,101 @@ def leaderboard():
     """Leaderboard page route"""
     return render_template('leaderboard.html')
 
+# @app.route('/commands')
+# def commands():
+#     """Commands reference page route"""
+#     return render_template('commands.html')
+
 @app.route('/commands')
 def commands():
     """Commands reference page route"""
-    return render_template('commands.html')
+    # Get all commands grouped by category
+    categories = db.session.query(Command.category).distinct().all()
+    categories = [category[0] for category in categories]  # Extract category names
+    
+    commands_by_category = {}
+    for category in categories:
+        commands_by_category[category] = Command.query.filter_by(category=category).all()
+    
+    return render_template('commands.html', 
+                          categories=categories, 
+                          commands_by_category=commands_by_category)
+
+# @app.route('/commands/<command_name>')
+# def command_detail(command_name):
+#     """Display detailed information for a specific command"""
+#     # For now, we'll handle 'ls' as a special case with hardcoded data
+#     # Later this would be replaced with database queries
+    
+#     if command_name == 'ls':
+#         command = {
+#             'name': 'ls',
+#             'syntax': 'ls [OPTION]... [FILE]...',
+#             'description': 'List information about the FILEs (the current directory by default). Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.',
+#             'category': 'File Operations',
+#             'shell_type': 'bash',
+#             'options': [
+#                 {
+#                     'flag': '-a, --all',
+#                     'description': 'do not ignore entries starting with .'
+#                 },
+#                 {
+#                     'flag': '-l',
+#                     'description': 'use a long listing format'
+#                 },
+#                 {
+#                     'flag': '-h, --human-readable',
+#                     'description': 'with -l, print sizes in human readable format (e.g., 1K 234M 2G)'
+#                 },
+#                 {
+#                     'flag': '-r, --reverse',
+#                     'description': 'reverse order while sorting'
+#                 },
+#                 {
+#                     'flag': '-t',
+#                     'description': 'sort by modification time, newest first'
+#                 }
+#             ],
+#             'examples': [
+#                 {
+#                     'title': 'List all files including hidden ones',
+#                     'command': 'ls -a',
+#                     'explanation': 'Shows all files, including those that start with a dot (.) which are normally hidden.'
+#                 },
+#                 {
+#                     'title': 'List files with detailed information',
+#                     'setup_command': 'touch example.txt',
+#                     'command': 'ls -l example.txt',
+#                     'explanation': 'Shows detailed information about example.txt including permissions, owner, size, and modification date.'
+#                 },
+#                 {
+#                     'title': 'List files sorted by modification time',
+#                     'command': 'ls -lt',
+#                     'explanation': 'Lists all files in long format, sorted by modification time with newest first.'
+#                 }
+#             ]
+#         }
+#         return render_template('command_detail.html', command=command)
+#     else:
+#         # For any other command, redirect to commands page for now
+#         flash(f'Details for "{command_name}" coming soon!', 'info')
+#         return redirect(url_for('commands'))
 
 @app.route('/commands/<command_name>')
 def command_detail(command_name):
     """Display detailed information for a specific command"""
-    # For now, we'll handle 'ls' as a special case with hardcoded data
-    # Later this would be replaced with database queries
+    # Query the database for the command
+    command = Command.query.filter_by(name=command_name).first_or_404()
     
-    if command_name == 'ls':
-        command = {
-            'name': 'ls',
-            'syntax': 'ls [OPTION]... [FILE]...',
-            'description': 'List information about the FILEs (the current directory by default). Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.',
-            'category': 'File Operations',
-            'shell_type': 'bash',
-            'options': [
-                {
-                    'flag': '-a, --all',
-                    'description': 'do not ignore entries starting with .'
-                },
-                {
-                    'flag': '-l',
-                    'description': 'use a long listing format'
-                },
-                {
-                    'flag': '-h, --human-readable',
-                    'description': 'with -l, print sizes in human readable format (e.g., 1K 234M 2G)'
-                },
-                {
-                    'flag': '-r, --reverse',
-                    'description': 'reverse order while sorting'
-                },
-                {
-                    'flag': '-t',
-                    'description': 'sort by modification time, newest first'
-                }
-            ],
-            'examples': [
-                {
-                    'title': 'List all files including hidden ones',
-                    'command': 'ls -a',
-                    'explanation': 'Shows all files, including those that start with a dot (.) which are normally hidden.'
-                },
-                {
-                    'title': 'List files with detailed information',
-                    'setup_command': 'touch example.txt',
-                    'command': 'ls -l example.txt',
-                    'explanation': 'Shows detailed information about example.txt including permissions, owner, size, and modification date.'
-                },
-                {
-                    'title': 'List files sorted by modification time',
-                    'command': 'ls -lt',
-                    'explanation': 'Lists all files in long format, sorted by modification time with newest first.'
-                }
-            ]
-        }
-        return render_template('command_detail.html', command=command)
-    else:
-        # For any other command, redirect to commands page for now
-        flash(f'Details for "{command_name}" coming soon!', 'info')
-        return redirect(url_for('commands'))
+    # Get related commands (similar category)
+    related_commands = Command.query.filter(
+        Command.category == command.category,
+        Command.name != command.name
+    ).limit(4).all()
+    
+    return render_template('command_detail.html', 
+                          command=command,
+                          related_commands=related_commands)
     
 @app.route('/about')
 def about():
