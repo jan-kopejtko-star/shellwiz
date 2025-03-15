@@ -96,8 +96,8 @@ class CommandExample(db.Model):
     __tablename__ = 'command_examples'
     example_id = db.Column(db.Integer, primary_key=True)
     command_id = db.Column(db.Integer, db.ForeignKey('commands.command_id', ondelete='CASCADE'))
-    example = db.Column(db.Text, nullable=False)
-    explanation = db.Column(db.Text, nullable=False)
+    example = db.Column(db.Text, nullable=True)
+    explanation = db.Column(db.Text, nullable=True)
     
     # New fields
     title = db.Column(db.String(255), nullable=True)
