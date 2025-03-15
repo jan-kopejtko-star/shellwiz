@@ -89,8 +89,8 @@ class Command(db.Model):
     is_premium = db.Column(db.Boolean, default=False)
     
     # Relationships
-    examples = db.relationship('CommandExample', backref='command', cascade='all, delete-orphan')
-    masteries = db.relationship('CommandMastery', backref='command')
+    examples = db.relationship('CommandExample', backref='parent_command', cascade='all, delete-orphan')
+    masteries = db.relationship('CommandMastery', backref='parent_command')
 
 class CommandExample(db.Model):
     __tablename__ = 'command_examples'
